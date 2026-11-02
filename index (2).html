@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Magazine Luiza — loja oficial. Móveis, eletrodomésticos, celulares, eletrônicos, informática, beleza, esporte, games, pet, ferramentas, moda, livros, bebês, automotivo, instrumentos e jardim com frete grátis acima de R$ 299.">
+<meta name="theme-color" content="#0086ff">
+<title>Magazine Luiza - Loja Oficial</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root {
+    --blue: #0086ff; --blue-dark: #0069cc; --pink: #ff0080; --pink-dark: #d6006b;
+    --bg: #f2f2f2; --text: #222; --gray: #737373; --star: #f5a623;
+    --green: #00a650; --green-light: #e6f4ea; --red: #e53935; --border: #e0e0e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+  body { background-color: var(--bg); color: var(--text); }
+  img { display: block; }
+  button { font-family: inherit; }
+  a { color: inherit; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  /* HEADER */
+  .header { background: var(--blue); color: #fff; position: sticky; top: 0; z-index: 100; }
+  .header-top { display: flex; justify-content: flex-end; align-items: center; padding: 8px 20px; font-size: 12px; font-weight: 500; }
+  .header-top .links a { color: #fff; text-decoration: none; margin-left: 15px; opacity: .95; }
+  .header-top .links a:hover { text-decoration: underline; }
+  .header-main { display: flex; align-items: center; justify-content: space-between; padding: 0 20px 15px; gap: 20px; }
+  .logo { font-size: 26px; font-weight: 900; font-style: italic; letter-spacing: -1.2px; cursor: pointer; background: none; border: none; color: #fff; position: relative; white-space: nowrap; }
+  .logo::after { content: ""; position: absolute; right: -9px; bottom: 7px; width: 6px; height: 6px; border-radius: 50%; background: #ffeb3b; }
+  .search-bg { flex: 1; background: linear-gradient(90deg, #ffcc00, #ff0080, #0086ff, #00a650); padding: 2px; border-radius: 24px; max-width: 800px; }
+  .search-box { display: flex; background: #fff; border-radius: 22px; padding: 8px 16px; align-items: center; gap: 8px; }
+  .search-box input { border: none; outline: none; width: 100%; font-size: 14px; color: #333; background: transparent; }
+  .search-box input::placeholder { color: #999; }
+  .search-box .btn-clear { background: none; border: none; color: #888; cursor: pointer; display: none; font-size: 15px; }
+  .search-box .btn-clear.show { display: block; }
+  .search-box i.fa-magnifying-glass { color: #555; font-size: 16px; cursor: pointer; }
+  .header-icons { display: flex; align-items: center; gap: 18px; }
+  .icon-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; position: relative; display: flex; align-items: center; gap: 7px; text-decoration: none; padding: 4px; }
+  .icon-btn span { font-size: 14px; font-weight: 600; }
+  .icon-btn:hover span { text-decoration: underline; }
+  .cart-badge, .fav-badge { position: absolute; top: -6px; left: 12px; background: var(--pink); color: #fff; font-size: 10px; font-weight: 800; border-radius: 999px; padding: 2px 5px; display: none; min-width: 16px; text-align: center; }
+  .nav-categorias { background: #fff; border-bottom: 1px solid #ddd; padding: 10px 20px; display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; }
+  .nav-categorias::-webkit-scrollbar { display: none; }
+  .nav-categorias a { text-decoration: none; color: #555; font-size: 14px; font-weight: 500; white-space: nowrap; padding-bottom: 6px; border-bottom: 2px solid transparent; cursor: pointer; transition: .2s; }
+  .nav-categorias a:hover { color: var(--blue); }
+  .nav-categorias a.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+  /* LAYOUT */
+  .main-container { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px; gap: 20px; align-items: flex-start; }
+  .products-area { flex: 1; min-width: 0; }
+  .section-title { font-size: 20px; font-weight: 700; color: #111; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+
+  /* Toolbar */
+  .toolbar { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+  .toolbar-info { display: flex; flex-direction: column; gap: 4px; }
+  #results-count { font-size: 13px; color: var(--gray); }
+  .toolbar-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; color: #444; cursor: pointer; transition: .15s; }
+  .chip:hover { border-color: var(--blue); color: var(--blue); }
+  .chip.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .sort-select { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; font-size: 13px; font-weight: 600; color: #333; outline: none; cursor: pointer; }
+  .sort-select:focus { border-color: var(--blue); }
+  .sem-resultado { text-align: center; padding: 60px 20px; color: var(--gray); grid-column: 1 / -1; background: #fff; border-radius: 8px; }
+  .sem-resultado i { font-size: 44px; margin-bottom: 12px; color: #ccc; display: block; }
+  .sem-resultado p { margin-bottom: 14px; }
+  .sem-resultado button { background: var(--blue); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+  /* CARD PRODUTO */
+  .card { background: #fff; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; position: relative; border: 1px solid var(--border); transition: box-shadow .2s, transform .2s; cursor: pointer; outline: none; }
+  .card:hover, .card:focus-visible { box-shadow: 0 6px 18px rgba(0,0,0,0.12); transform: translateY(-2px); }
+  .card:focus-visible { border-color: var(--blue); }
+  .badges { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 4px; z-index: 5; align-items: flex-start; max-width: calc(100% - 60px); }
+  .badge-full { background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 6px; border-radius: 4px; display: flex; align-items: center; gap: 4px; }
+  .badge-montagem { background: var(--blue); color: #ffeb3b; font-size: 10px; font-weight: 900; padding: 4px 6px; border-radius: 4px; line-height: 1.1; text-align: left; }
+  .badge-oferta { background: #000; color: #ffeb3b; font-size: 10px; font-weight: 800; padding: 4px 6px; border-radius: 4px; }
+  .badge-off { background: #fff0f6; color: var(--pink); font-size: 11px; font-weight: 800; padding: 3px 6px; border-radius: 4px; border: 1px solid #ffd6e8; }
+  .btn-fav { position: absolute; top: 10px; right: 10px; z-index: 6; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: #fff; color: #bbb; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: .15s; }
+  .btn-fav:hover { color: var(--pink); border-color: var(--pink); }
+  .btn-fav.active { color: var(--pink); border-color: #ffd6e8; background: #fff0f6; }
+  .img-container { width: 100%; height: 180px; display: flex; align-items: center; justify-content: center; margin: 20px 0 12px; }
+  .img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .card h3 { font-size: 14px; font-weight: 400; color: #444; height: 40px; overflow: hidden; line-height: 1.4; margin-bottom: 8px; }
+  .rating { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; }
+  .rating .stars { color: var(--star); font-size: 11px; letter-spacing: -1px; }
+  .rating .reviews { color: var(--gray); font-weight: 400; font-size: 12px; }
+
+
+  .price-box { display: flex; align-items: baseline; gap: 5px; margin-bottom: 2px; flex-wrap: wrap; }
+  .price { font-size: 22px; font-weight: 800; color: #111; letter-spacing: -0.5px; }
+  .price small { font-size: 14px; font-weight: 600; }
+  .pix-text { font-size: 13px; color: var(--green); font-weight: 700; }
+  .installments { font-size: 12px; color: var(--gray); line-height: 1.4; margin-bottom: 4px; }
+  .delivery { font-size: 12px; color: var(--blue); font-weight: 600; margin-top: auto; padding-top: 8px; }
+  .delivery.green { color: var(--green); }
+  .card-actions { margin-top: 12px; }
+  .btn-add { width: 100%; background: #f0f0f0; color: #333; border: none; padding: 10px; border-radius: 6px; font-weight: 800; font-size: 14px; cursor: pointer; transition: .2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+  .btn-add:hover { background: var(--blue); color: #fff; }
+  .btn-add.added { background: var(--green); color: #fff; }
+
+  /* SACOLA */
+  .cart-overlay { display: none; }
+  .cart-sidebar { width: 350px; flex: 0 0 350px; background: #fff; border-radius: 8px; padding: 20px; position: sticky; top: 140px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; max-height: calc(100vh - 160px); }
+  .cart-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--blue); padding-bottom: 10px; margin-bottom: 14px; }
+  .cart-head h2 { font-size: 18px; color: var(--blue); }
+  .btn-close-cart { display: none; background: none; border: none; color: var(--text); font-size: 22px; cursor: pointer; }
+  .free-ship { background: #f7fbff; border: 1px solid #d6eaff; border-radius: 8px; padding: 10px; margin-bottom: 14px; font-size: 12px; color: #245; }
+  .free-ship strong { color: var(--green); }
+  .free-bar { height: 6px; background: #e3eefb; border-radius: 999px; margin-top: 8px; overflow: hidden; }
+  .free-bar i { display: block; height: 100%; background: var(--green); border-radius: 999px; transition: width .3s; }
+  .cart-items { flex: 1; overflow-y: auto; margin-bottom: 14px; min-height: 70px; }
+  .cart-item { display: flex; gap: 12px; margin-bottom: 14px; border-bottom: 1px solid #f0f0f0; padding-bottom: 14px; }
+  .cart-item:last-child { border-bottom: none; margin-bottom: 0; }
+  .cart-item img { width: 58px; height: 58px; object-fit: contain; flex: 0 0 58px; }
+  .cart-item-info { flex: 1; min-width: 0; }
+  .cart-item-info h4 { font-size: 13px; font-weight: 500; margin-bottom: 4px; line-height: 1.25; color: #333; }
+  .cart-item-price { font-weight: 800; color: var(--blue); font-size: 14px; margin-bottom: 8px; }
+  .cart-item-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .qty-controls { display: flex; align-items: center; gap: 8px; }
+  .qty-controls button { width: 26px; height: 26px; border: 1px solid #ccc; background: #fff; border-radius: 4px; font-weight: 700; cursor: pointer; color: #333; display: flex; align-items: center; justify-content: center; }
+  .qty-controls button:hover { background: #eee; }
+  .qty-controls span { font-size: 14px; font-weight: 700; min-width: 18px; text-align: center; }
+  .btn-remove { background: none; border: none; color: var(--red); font-size: 12px; cursor: pointer; padding: 2px; }
+  .btn-remove:hover { text-decoration: underline; }
+  .cart-empty { text-align: center; color: #888; padding: 26px 10px; }
+  .cart-empty i { font-size: 34px; color: #d5d5d5; display: block; margin-bottom: 10px; }
+  .cart-empty p { font-size: 13px; }
+
+  /* Cupom */
+  .coupon-box { border-top: 1px solid #eee; padding-top: 12px; margin-bottom: 10px; }
+  .coupon-row { display: flex; gap: 8px; }
+  .coupon-row input { flex: 1; padding: 9px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; outline: none; text-transform: uppercase; }
+  .coupon-row input:focus { border-color: var(--blue); }
+  .coupon-row button { background: #111; color: #fff; border: none; padding: 0 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; }
+  .coupon-tag { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--green-light); color: #0b7a44; border-radius: 6px; padding: 8px 10px; font-size: 12px; font-weight: 700; }
+  .coupon-tag button { background: none; border: none; color: #0b7a44; cursor: pointer; font-size: 14px; text-decoration: underline; }
+
+  /* Frete */
+  .shipping-box { border-top: 1px solid #eee; padding-top: 12px; margin-bottom: 10px; }
+  .shipping-box label { font-size: 13px; font-weight: 700; display: block; margin-bottom: 8px; color: #333; }
+  .cep-row { display: flex; gap: 8px; }
+  .cep-row input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; outline: none; }
+  .cep-row input:focus { border-color: var(--blue); }
+  .cep-row button { background: var(--blue); color: #fff; border: none; padding: 0 16px; border-radius: 6px; font-weight: 800; cursor: pointer; font-size: 13px; }
+  .cep-row button:hover { background: var(--blue-dark); }
+  .link-cep { font-size: 11px; color: var(--blue); cursor: pointer; margin-top: 6px; display: inline-block; background: none; border: none; padding: 0; }
+  .frete-opt { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-top: 8px; cursor: pointer; font-size: 13px; transition: .15s; }
+  .frete-opt:hover { background: #f9f9f9; }
+  .frete-opt.selected { border-color: var(--blue); background: #f0f7ff; }
+  .frete-opt .nome { font-weight: 800; display: block; }
+  .frete-opt .prazo { color: var(--gray); font-size: 11px; display: block; margin-top: 2px; }
+  .frete-opt .valor { font-weight: 800; color: var(--blue); white-space: nowrap; }
+  .frete-opt .valor.gratis { color: var(--green); }
+
+  .cart-total-box { border-top: 1px solid #ddd; padding-top: 12px; }
+  .cart-line { display: flex; justify-content: space-between; font-size: 13px; color: #555; margin-bottom: 6px; gap: 10px; }
+  .cart-line.desconto { color: var(--green); font-weight: 600; }
+  .cart-total { display: flex; justify-content: space-between; align-items: baseline; font-size: 18px; font-weight: 800; margin: 10px 0 4px; }
+  .cart-total small { display: block; font-size: 11px; font-weight: 600; color: var(--gray); }
+  .pix-hint { font-size: 12px; color: var(--green); font-weight: 700; margin-bottom: 12px; }
+  .btn-checkout { width: 100%; background: var(--pink); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; transition: .2s; }
+  .btn-checkout:hover { background: var(--pink-dark); }
+  .btn-checkout:disabled { background: #ccc; cursor: not-allowed; }
+
+  /* MODAL PRODUTO */
+  .product-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 250; display: none; overflow-y: auto; padding: 20px; }
+  .product-modal.open { display: flex; align-items: flex-start; justify-content: center; }
+  .product-modal-content { background: #fff; border-radius: 12px; max-width: 1000px; width: 100%; position: relative; margin: auto; }
+  .product-modal-close { position: absolute; top: 12px; right: 12px; background: #fff; border: 1px solid #ddd; width: 36px; height: 36px; border-radius: 50%; font-size: 22px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; color: #333; }
+  .product-modal-close:hover { background: #f0f0f0; }
+  .product-modal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 30px; }
+  .gallery-main { width: 100%; height: 350px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border-radius: 8px; padding: 20px; }
+  .gallery-main img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .gallery-thumbs { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .gallery-thumb { width: 64px; height: 64px; border: 2px solid #eee; border-radius: 6px; cursor: pointer; padding: 4px; background: #f9f9f9; }
+  .gallery-thumb.active { border-color: var(--blue); }
+  .gallery-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .product-detail h2 { font-size: 20px; margin-bottom: 10px; font-weight: 600; color: #111; line-height: 1.32; padding-right: 40px; }
+  .product-detail .price-block { background: #f8f8f8; padding: 16px; border-radius: 8px; margin: 16px 0; }
+  .product-detail .old-line { font-size: 13px; color: var(--gray); text-decoration: line-through; }
+  .product-detail .price-big { font-size: 28px; font-weight: 800; color: #111; }
+  .product-detail .price-big small { font-size: 16px; font-weight: 600; }
+  .product-detail .pix-info { color: var(--green); font-weight: 800; font-size: 14px; margin-top: 4px; }
+  .product-detail .inst-info { font-size: 13px; color: #555; margin-top: 6px; }
+  .product-detail .stock { font-size: 12px; color: var(--green); font-weight: 700; margin-top: 8px; }
+  .product-detail .qty-detail { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+  .product-detail .qty-detail button { width: 36px; height: 36px; border: 1px solid #ccc; background: #fff; border-radius: 6px; font-size: 18px; font-weight: 700; cursor: pointer; }
+  .product-detail .qty-detail button:hover { background: #f0f0f0; }
+  .product-detail .qty-detail span { font-size: 16px; font-weight: 800; min-width: 30px; text-align: center; }
+  .btn-add-big { width: 100%; background: var(--blue); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+  .btn-add-big:hover { background: var(--blue-dark); }
+  .btn-buy-big { width: 100%; background: #fff; color: var(--pink); border: 2px solid var(--pink); padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 8px; }
+  .btn-buy-big:hover { background: #fff0f6; }
+  .cep-calc-detail { margin-top: 16px; padding: 14px; border: 1px solid #ddd; border-radius: 8px; }
+  .cep-calc-detail label { font-size: 13px; font-weight: 800; margin-bottom: 8px; display: block; }
+  .desc-block { padding: 0 30px 30px; }
+  .desc-block h3 { font-size: 15px; margin: 20px 0 8px; color: #111; }
+  .desc-block p { font-size: 13px; color: #555; line-height: 1.65; }
+  .specs-table { width: 100%; margin-top: 8px; font-size: 13px; border-collapse: collapse; }
+  .specs-table td { padding: 9px 0; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  .specs-table td:first-child { font-weight: 700; color: #333; width: 40%; }
+  .specs-table td:last-child { color: #555; }
+
+  /* CHECKOUT */
+  .checkout-modal { position: fixed; inset: 0; background: var(--bg); z-index: 300; display: none; overflow-y: auto; }
+  .checkout-modal.open { display: block; }
+  .checkout-header { background: #fff; padding: 14px 20px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #ddd; }
+  .checkout-header .back { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--blue); padding: 4px; }
+  .checkout-header h2 { font-size: 18px; }
+  .checkout-header .secure { margin-left: auto; font-size: 12px; color: var(--gray); display: flex; align-items: center; gap: 6px; }
+  .checkout-container { max-width: 980px; margin: 20px auto 50px; padding: 0 20px; display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; align-items: start; }
+  .checkout-col { display: flex; flex-direction: column; gap: 16px; }
+  .checkout-box { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+  .checkout-box h3 { font-size: 16px; margin-bottom: 16px; color: #333; display: flex; align-items: center; gap: 8px; }
+  .checkout-box h3 i { color: var(--blue); }
+  .pay-opt { display: flex; align-items: center; gap: 12px; padding: 14px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: .2s; }
+  .pay-opt:hover { background: #f9f9f9; }
+  .pay-opt.selected { border-color: var(--blue); background: #f0f7ff; }
+  .pay-opt i { font-size: 22px; color: var(--blue); width: 30px; text-align: center; }
+  .pay-opt .info strong { display: block; font-size: 14px; color: #111; }
+  .pay-opt .info span { font-size: 12px; color: var(--gray); }
+  .form-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .form-group { margin-bottom: 14px; flex: 1; min-width: 150px; }
+  .form-group.full { flex: 100%; }
+  .form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #444; }
+  .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; outline: none; transition: .15s; background: #fff; color: #222; }
+  .form-group input:focus, .form-group select:focus { border-color: var(--blue); }
+  .form-group input.erro, .form-group select.erro { border-color: var(--red); background: #fff6f6; }
+  .form-group .msg-erro { font-size: 11px; color: var(--red); margin-top: 5px; display: none; font-weight: 600; }
+  .form-group .msg-erro.show { display: block; }
+  .resumo-item { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 10px; font-size: 13px; color: #555; }
+  .resumo-item strong { color: #111; }
+  .resumo-divider { border-top: 1px solid #eee; margin: 12px 0; padding-top: 12px; }
+  
+  /* CORREÇÃO DO TOTAL A PAGAR */
+  .resumo-total { display: flex; flex-direction: column; border-top: 1px solid #eee; padding-top: 14px; margin-top: 6px; color: #111; gap: 4px; }
+  .resumo-total .total-label { font-size: 15px; font-weight: 600; color: #555; }
+  .resumo-total .total-value-box { display: flex; justify-content: space-between; align-items: baseline; width: 100%; gap: 10px; }
+  .resumo-total .total-value { font-size: 24px; font-weight: 800; }
+  .resumo-total small { display: block; font-size: 13px; font-weight: 600; color: var(--green); text-align: right; width: 100%; margin-top: 2px; }
+
+  .btn-pay { width: 100%; background: var(--pink); color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 17px; font-weight: 800; cursor: pointer; margin-top: 16px; transition: .2s; }
+  .btn-pay:hover { background: var(--pink-dark); }
+  .btn-pay:disabled { background: #ccc; cursor: not-allowed; }
+  .demo-note { font-size: 11px; color: #999; text-align: center; margin-top: 10px; line-height: 1.5; }
+  .success-screen { display: none; text-align: center; padding: 50px 20px 80px; max-width: 640px; margin: 0 auto; }
+  .success-screen > i { font-size: 72px; color: var(--green); margin-bottom: 16px; display: block; }
+  .success-screen h2 { font-size: 24px; margin-bottom: 8px; color: #111; }
+  .success-screen .pedido { font-size: 14px; color: #555; margin-bottom: 22px; }
+  .success-box { background: #fff; border-radius: 8px; padding: 20px; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,.05); margin-bottom: 18px; }
+  .success-box h4 { font-size: 14px; margin-bottom: 10px; color: #111; }
+  .copy-field { display: flex; gap: 8px; }
+  .copy-field input { flex: 1; padding: 10px; border: 1px dashed #bbb; border-radius: 6px; font-size: 12px; font-family: monospace; color: #444; background: #fafafa; }
+  .copy-field button { background: var(--blue); color: #fff; border: none; padding: 0 14px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; white-space: nowrap; }
+  .btn-voltar { background: var(--blue); color: #fff; border: none; padding: 14px 30px; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; }
+  .btn-voltar:hover { background: var(--blue-dark); }
+
+  /* FOOTER */
+  .footer { background: #fff; border-top: 1px solid #ddd; margin-top: 30px; }
+  .footer-inner { max-width: 1400px; margin: 0 auto; padding: 34px 20px 20px; }
+  .footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 26px; margin-bottom: 28px; }
+  .footer-cols h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .4px; color: #111; margin-bottom: 12px; }
+  .footer-cols ul { list-style: none; }
+  .footer-cols li { font-size: 13px; color: #666; margin-bottom: 8px; cursor: pointer; }
+  .footer-cols li:hover { color: var(--blue); }
+  .newsletter input { width: 100%; padding: 11px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; margin-bottom: 8px; outline: none; }
+  .newsletter input:focus { border-color: var(--blue); }
+  .newsletter button { width: 100%; background: var(--pink); color: #fff; border: none; padding: 11px; border-radius: 6px; font-weight: 800; cursor: pointer; font-size: 13px; }
+  .newsletter button:hover { background: var(--pink-dark); }
+  .footer-pay { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid #eee; padding-top: 18px; font-size: 12px; color: #777; }
+  .pay-chip { background: #f5f5f5; border: 1px solid #e5e5e5; border-radius: 4px; padding: 5px 9px; font-size: 11px; font-weight: 700; color: #444; display: flex; align-items: center; gap: 5px; }
+  .footer-bottom { border-top: 1px solid #eee; padding-top: 14px; margin-top: 14px; font-size: 12px; color: #888; line-height: 1.6; }
+
+  /* TOAST */
+  .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+  .toast { background: #fff; padding: 14px 18px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; transform: translateX(400px); opacity: 0; transition: all .3s; border-left: 4px solid var(--green); max-width: 340px; color: #111; }
+  .toast.show { transform: translateX(0); opacity: 1; }
+  .toast.error { border-left-color: var(--red); }
+  .toast.error i { color: var(--red); }
+  .toast i { color: var(--green); font-size: 18px; }
+
+  /* RESPONSIVO */
+  @media (max-width: 1000px) {
+    .checkout-container { grid-template-columns: 1fr; }
+    .checkout-col.resumo { order: -1; }
+  }
+  @media (max-width: 900px) {
+    .header-top { display: none; }
+    .header-main { flex-wrap: wrap; padding: 10px; gap: 10px; }
+    .logo { font-size: 21px; }
+    .search-bg { order: 3; flex: 100%; margin-top: 5px; max-width: none; }
+    .header-icons { gap: 12px; }
+    .header-icons .label { display: none; }
+    .icon-btn span.label { display: none; }
+    .main-container { flex-direction: column; padding: 12px; gap: 0; }
+    .products-area { width: 100%; }
+    .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 370px; height: 100vh; flex: none; z-index: 200; border-radius: 0; transition: right .3s; max-height: 100vh; overflow-y: auto; }
+    .cart-sidebar.open { right: 0; }
+    .cart-overlay { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 150; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .cart-overlay.open { opacity: 1; pointer-events: auto; }
+    .btn-close-cart { display: block; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .img-container { height: 140px; margin-top: 22px; }
+    .card { padding: 10px; }
+    .card h3 { font-size: 12.5px; height: 38px; }
+    .price { font-size: 18px; }
+    .price small { font-size: 12px; }
+    .badges { top: 8px; left: 8px; max-width: calc(100% - 52px); }
+    .badge-montagem, .badge-oferta { font-size: 9px; padding: 3px 5px; }
+    .btn-fav { top: 8px; right: 8px; width: 28px; height: 28px; font-size: 12px; }
+    .toolbar { align-items: flex-start; }
+    .toolbar-actions { width: 100%; }
+    .chips { width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px; }
+    .chip { flex: 0 0 auto; }
+    .sort-select { width: 100%; }
+    .product-modal { padding: 0; }
+    .product-modal-content { border-radius: 0; min-height: 100%; }
+    .product-modal-body { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+    .gallery-main { height: 250px; }
+    .desc-block { padding: 0 16px 24px; }
+    .checkout-container { padding: 0 12px; }
+    .checkout-header .secure span { display: none; }
+    .footer-inner { padding: 26px 16px 18px; }
+  }
+  @media (min-width: 901px) { .btn-close-cart { display: none; } }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <div class="links">
+      <a href="#">Venda no Magalu</a>
+      <a href="#">Central de Atendimento</a>
+      <a href="#">Nossas lojas</a>
+    </div>
+  </div>
+  <div class="header-main">
+    <button class="logo" onclick="resetarFiltros()" aria-label="Página inicial Magalu">Magalu</button>
+    <div class="search-bg">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" id="busca" placeholder="Busca no Magalu" oninput="aplicarFiltros()" aria-label="Buscar produtos">
+        <button class="btn-clear" id="btn-clear" onclick="limparBusca()" aria-label="Limpar busca"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div class="header-icons">
+      <a href="#" class="icon-btn" aria-label="Minha conta" onclick="showToast('Área do cliente em manutenção. Volte em breve!','error'); return false;"><i class="fa-regular fa-user"></i> <span class="label">Conta</span></a>
+      <button class="icon-btn" onclick="abrirFavoritos()" aria-label="Meus favoritos">
+        <i class="fa-regular fa-heart"></i> <span class="label">Favoritos</span>
+        <span class="fav-badge" id="fav-badge">0</span>
+      </button>
+      <button class="icon-btn" onclick="toggleCart()" aria-label="Abrir sacola">
+        <i class="fa-solid fa-bag-shopping"></i> <span class="label">Sacola</span>
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-categorias" aria-label="Categorias">
+  <a class="active" data-cat="todas" onclick="filtrarCategoria('todas', this)">Todas as Categorias</a>
+  <a data-cat="ofertas" onclick="filtrarCategoria('ofertas', this)">Ofertas do dia</a>
+  <a data-cat="moveis" onclick="filtrarCategoria('moveis', this)">Móveis</a>
+  <a data-cat="eletrodomesticos" onclick="filtrarCategoria('eletrodomesticos', this)">Eletrodomésticos</a>
+  <a data-cat="celulares" onclick="filtrarCategoria('celulares', this)">Celulares</a>
+  <a data-cat="eletronicos" onclick="filtrarCategoria('eletronicos', this)">Eletrônicos</a>
+  <a data-cat="informatica" onclick="filtrarCategoria('informatica', this)">Informática</a>
+  <a data-cat="beleza" onclick="filtrarCategoria('beleza', this)">Beleza e Saúde</a>
+  <a data-cat="esporte" onclick="filtrarCategoria('esporte', this)">Esporte e Lazer</a>
+  <a data-cat="games" onclick="filtrarCategoria('games', this)">Brinquedos e Games</a>
+  <a data-cat="pet" onclick="filtrarCategoria('pet', this)">Pet Shop</a>
+  <a data-cat="ferramentas" onclick="filtrarCategoria('ferramentas', this)">Ferramentas</a>
+  <a data-cat="moda" onclick="filtrarCategoria('moda', this)">Moda</a>
+  <a data-cat="livros" onclick="filtrarCategoria('livros', this)">Livros e Papelaria</a>
+  <a data-cat="bebes" onclick="filtrarCategoria('bebes', this)">Bebês</a>
+  <a data-cat="automotivo" onclick="filtrarCategoria('automotivo', this)">Automotivo</a>
+  <a data-cat="instrumentos" onclick="filtrarCategoria('instrumentos', this)">Instrumentos Musicais</a>
+  <a data-cat="jardim" onclick="filtrarCategoria('jardim', this)">Jardim</a>
+  <a data-cat="cozinha" onclick="filtrarCategoria('cozinha', this)">Cozinha</a>
+</nav>
+
+<div class="main-container">
+  <main class="products-area">
+    <div class="toolbar">
+      <div class="toolbar-info">
+        <h2 class="section-title" id="section-title">Para descobrir e aproveitar</h2>
+        <span id="results-count"></span>
+      </div>
+      <div class="toolbar-actions">
+        <div class="chips" id="chips">
+          <button class="chip" data-chip="ofertas" onclick="toggleChip('ofertas', this)">Ofertas</button>
+          <button class="chip" data-chip="full" onclick="toggleChip('full', this)">Frete grátis</button>
+          <button class="chip" data-chip="top" onclick="toggleChip('top', this)">Melhor avaliados</button>
+          <button class="chip" data-chip="barato" onclick="toggleChip('barato', this)">Até R$ 500</button>
+          <button class="chip" data-chip="favoritos" onclick="toggleChip('favoritos', this)">Favoritos</button>
+        </div>
+        <select class="sort-select" id="ordenacao" onchange="ordenar(this.value)" aria-label="Ordenar produtos">
+          <option value="relevancia">Relevância</option>
+          <option value="menor">Menor preço</option>
+          <option value="maior">Maior preço</option>
+          <option value="avaliacao">Melhor avaliados</option>
+          <option value="desconto">Maior desconto</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid" id="grid-produtos"></div>
+  </main>
+
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Minha sacola">
+    <div class="cart-head">
+      <h2>Minha Sacola</h2>
+      <button class="btn-close-cart" onclick="toggleCart()" aria-label="Fechar sacola"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="free-ship" id="free-ship">
+      <span id="free-ship-text">Falta pouco para o frete grátis!</span>
+      <div class="free-bar"><i id="free-ship-bar" style="width:0%"></i></div>
+    </div>
+
+    <div class="cart-items" id="cart-items"></div>
+
+    <div class="coupon-box" id="coupon-box">
+      <div class="coupon-row" id="coupon-form">
+        <input type="text" id="cupom-input" placeholder="Cupom de desconto" maxlength="18" aria-label="Cupom de desconto">
+        <button onclick="aplicarCupom()">Aplicar</button>
+      </div>
+      <div class="coupon-tag" id="coupon-tag" style="display:none;">
+        <span id="coupon-label"></span>
+        <button onclick="removerCupom()">Remover</button>
+      </div>
+    </div>
+
+    <div class="shipping-box" id="shipping-box" style="display:none;">
+      <label><i class="fa-solid fa-truck-fast"></i> Calcular frete e prazo</label>
+      <div class="cep-row">
+        <input type="text" id="cep-input" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this)" aria-label="CEP">
+        <button onclick="calcularFreteCarrinho()">OK</button>
+      </div>
+      <button class="link-cep" onclick="document.getElementById('cep-input').focus()">Não sei meu CEP</button>
+      <div id="frete-opcoes"></div>
+    </div>
+
+    <div class="cart-total-box">
+      <div class="cart-line"><span>Subtotal:</span><span id="cart-subtotal">R$ 0,00</span></div>
+      <div class="cart-line desconto" id="cart-cupom-row" style="display:none;"><span id="cart-cupom-label">Cupom</span><span id="cart-cupom-valor">- R$ 0,00</span></div>
+      <div class="cart-line" id="cart-frete-row" style="display:none;"><span id="cart-frete-label">Frete:</span><span id="cart-frete">R$ 0,00</span></div>
+      <div class="cart-total">
+        <span>Total:</span>
+        <span style="text-align:right;"><span id="cart-total">R$ 0,00</span><small id="cart-pix-total"></small></span>
+      </div>
+      <div class="pix-hint" id="cart-pix-hint"></div>
+      <button class="btn-checkout" id="btn-checkout" onclick="abrirCheckout()">Finalizar Compra</button>
+    </div>
+  </aside>
+</div>
+
+<!-- MODAL PRODUTO INDIVIDUAL -->
+<div class="product-modal" id="product-modal" onclick="fecharProdutoModal(event)" role="dialog" aria-modal="true" aria-label="Detalhes do produto">
+  <div class="product-modal-content" onclick="event.stopPropagation()">
+    <button class="product-modal-close" onclick="fecharProdutoModal()" aria-label="Fechar">&times;</button>
+    <div class="product-modal-body" id="product-modal-body"></div>
+    <div class="desc-block" id="product-modal-desc"></div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="checkout-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-label="Finalizar compra">
+  <div class="checkout-header">
+    <button class="back" onclick="fecharCheckout()" aria-label="Voltar"><i class="fa-solid fa-arrow-left"></i></button>
+    <h2>Finalizar Compra</h2>
+    <div class="secure"><i class="fa-solid fa-lock"></i> <span>Ambiente seguro</span></div>
+  </div>
+
+  <div class="checkout-container" id="checkout-content">
+    <div class="checkout-col">
+      <div class="checkout-box">
+        <h3><i class="fa-regular fa-user"></i> Dados do comprador</h3>
+        <div class="form-row">
+          <div class="form-group" style="flex:100%">
+            <label for="pay-nome">Nome completo</label>
+            <input type="text" id="pay-nome" placeholder="Como no documento" autocomplete="name">
+            <span class="msg-erro" id="erro-nome">Informe seu nome completo.</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pay-cpf">CPF</label>
+            <input type="text" id="pay-cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)" inputmode="numeric">
+            <span class="msg-erro" id="erro-cpf">CPF inválido.</span>
+          </div>
+          <div class="form-group">
+            <label for="pay-email">E-mail</label>
+            <input type="email" id="pay-email" placeholder="voce@email.com" autocomplete="email">
+            <span class="msg-erro" id="erro-email">E-mail inválido.</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pay-tel">Celular</label>
+            <input type="text" id="pay-tel" placeholder="(11) 90000-0000" maxlength="15" oninput="mascaraTelefone(this)" inputmode="numeric">
+            <span class="msg-erro" id="erro-tel">Informe um celular válido.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-box">
+        <h3><i class="fa-solid fa-location-dot"></i> Entrega</h3>
+        <div class="form-row">
+          <div class="form-group" style="flex:0 0 150px;">
+            <label for="pay-cep">CEP</label>
+            <input type="text" id="pay-cep" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this); onCepCheckoutChange()" inputmode="numeric">
+            <span class="msg-erro" id="erro-cep">CEP inválido.</span>
+          </div>
+          <div class="form-group" style="flex:1 1 220px;">
+            <label for="pay-endereco">Endereço e número</label>
+            <input type="text" id="pay-endereco" placeholder="Rua, 123">
+            <span class="msg-erro" id="erro-endereco">Informe endereço e número.</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pay-bairro">Bairro</label>
+            <input type="text" id="pay-bairro" placeholder="Seu bairro">
+            <span class="msg-erro" id="erro-bairro">Informe o bairro.</span>
+          </div>
+          <div class="form-group">
+            <label for="pay-cidade">Cidade / UF</label>
+            <input type="text" id="pay-cidade" placeholder="São Paulo / SP">
+            <span class="msg-erro" id="erro-cidade">Informe cidade e UF.</span>
+          </div>
+        </div>
+        <div id="checkout-frete-opcoes" style="margin-top:4px;"></div>
+      </div>
+
+      <div class="checkout-box">
+        <h3><i class="fa-solid fa-credit-card"></i> Como você quer pagar?</h3>
+        <div class="pay-opt selected" onclick="selPgto('pix', this)">
+          <i class="fa-brands fa-pix"></i>
+          <div class="info"><strong>Pix</strong><span id="pix-opt-desc">Aprovação imediata com desconto</span></div>
+        </div>
+        <div class="pay-opt" onclick="selPgto('cartao', this)">
+          <i class="fa-solid fa-credit-card"></i>
+          <div class="info"><strong>Cartão de Crédito</strong><span>Em até 10x sem juros</span></div>
+        </div>
+        <div class="pay-opt" onclick="selPgto('boleto', this)">
+          <i class="fa-solid fa-barcode"></i>
+          <div class="info"><strong>Boleto Bancário</strong><span>Vence em 2 dias úteis</span></div>
+        </div>
+
+        <div id="campos-cartao" style="display:none; margin-top:14px;">
+          <div class="form-group">
+            <label for="pay-cartao">Número do cartão</label>
+            <input type="text" id="pay-cartao" placeholder="0000 0000 0000 0000" maxlength="19" oninput="mascaraCartao(this)" inputmode="numeric">
+            <span class="msg-erro" id="erro-cartao">Número de cartão inválido.</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pay-validade">Validade</label>
+              <input type="text" id="pay-validade" placeholder="MM/AA" maxlength="5" oninput="mascaraValidade(this)" inputmode="numeric">
+              <span class="msg-erro" id="erro-validade">Validade inválida.</span>
+            </div>
+            <div class="form-group">
+              <label for="pay-cvv">CVV</label>
+              <input type="text" id="pay-cvv" placeholder="123" maxlength="4" oninput="this.value = this.value.replace(/\D/g,'')" inputmode="numeric">
+              <span class="msg-erro" id="erro-cvv">CVV inválido.</span>
+            </div>
+            <div class="form-group">
+              <label for="pay-nome-cartao">Nome impresso</label>
+              <input type="text" id="pay-nome-cartao" placeholder="Como no cartão">
+              <span class="msg-erro" id="erro-nome-cartao">Informe o nome impresso.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pay-parcelas">Parcelas</label>
+            <select id="pay-parcelas" onchange="renderizarResumoCheckout()"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-box">
+        <h3><i class="fa-solid fa-receipt"></i> Resumo do pedido</h3>
+        <div id="checkout-resumo"></div>
+        <div class="resumo-total">
+          <span class="total-label">Total a pagar:</span>
+          <div class="total-value-box">
+            <span class="total-value" id="checkout-total">R$ 0,00</span>
+          </div>
+          <small id="checkout-total-nota"></small>
+        </div>
+        <button class="btn-pay" id="btn-pay" onclick="processarPagamento()">Pagar Agora</button>
+        <p class="demo-note">Demonstração de interface — nenhum pagamento real é processado e nenhum dado é enviado.</p>
+      </div>
+    </div>
+
+    <div class="checkout-col resumo" id="checkout-side"></div>
+  </div>
+
+  <div class="success-screen" id="success-screen">
+    <i class="fa-solid fa-circle-check"></i>
+    <h2>Pagamento Aprovado!</h2>
+    <p class="pedido" id="success-pedido"></p>
+    <div class="success-box" id="success-box"></div>
+    <button class="btn-voltar" onclick="voltarLoja()">Voltar para a Loja</button>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast-container" id="toast-container" role="status" aria-live="polite"></div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div>
+        <h4>Atendimento</h4>
+        <ul>
+          <li>Central de Ajuda</li>
+          <li>Prazos e entregas</li>
+          <li>Trocas e devoluções</li>
+          <li>Onde está meu pedido?</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Institucional</h4>
+        <ul>
+          <li>Sobre o Magalu</li>
+          <li>Trabalhe com a gente</li>
+          <li>Venda no Magalu</li>
+          <li>Imprensa</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Políticas</h4>
+        <ul>
+          <li>Política de privacidade</li>
+          <li>Política de troca</li>
+          <li>Termos de uso</li>
+          <li>Programa de afiliados</li>
+        </ul>
+      </div>
+      <div class="newsletter">
+        <h4>Receba ofertas</h4>
+        <input type="email" id="news-email" placeholder="Seu e-mail" aria-label="E-mail para newsletter">
+        <button onclick="assinarNewsletter()">Quero descontos</button>
+      </div>
+    </div>
+    <div class="footer-pay">
+      <strong style="color:#555;">Formas de pagamento:</strong>
+      <span class="pay-chip"><i class="fa-brands fa-pix" style="color:#32bcad;"></i> Pix</span>
+      <span class="pay-chip"><i class="fa-solid fa-credit-card" style="color:#0086ff;"></i> Crédito 10x</span>
+      <span class="pay-chip"><i class="fa-solid fa-barcode" style="color:#333;"></i> Boleto</span>
+      <span class="pay-chip"><i class="fa-solid fa-qrcode" style="color:#00a650;"></i> PIX QR</span>
+      <span style="margin-left:auto;"><i class="fa-solid fa-shield-halved" style="color:#00a650;"></i> Site seguro</span>
+    </div>
+    <div class="footer-bottom">
+      Projeto de estudo — clone de interface para fins educacionais. Não possui vínculo com o Magazine Luiza.
+      Preços, imagens, avaliações e prazos são fictícios e nenhum dado de pagamento é coletado ou transmitido.
+      © 2026 Demo Magalu.
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ PRODUTOS ============ */
+const produtos = [
+  /* ============ MÓVEIS / ELETRO / ELETRÔNICOS ============ */
+  { id:1, title:"Guarda Roupa Casal Roma MDF 6 Portas e Gavetas", categoria:"moveis", rating:"4.4", reviews:"940", price:"1.099,90", old:"1.249,89", pix:5, inst:"10x de R$ 109,99", peso:45, img:"https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=400&auto=format&fit=crop","https://images.unsplash.com/photo-1558997519-83ea9252edf8?q=80&w=400&auto=format&fit=crop"], desc:"Guarda-roupa casal com 6 portas e gavetas, fabricado em MDF de alta qualidade.", specs:{"Marca":"Roma","Material":"MDF","Portas":"6","Gavetas":"4","Garantia":"12 meses"}, badges:['full','montagem'] },
+  { id:2, title:"Guarda-roupa Casal com Espelho 6 Portas", categoria:"moveis", rating:"4.6", reviews:"21676", price:"1.329,91", old:"1.399,90", pix:5, inst:"10x de R$ 132,99", peso:55, img:"https://images.unsplash.com/photo-1558997519-83ea9252edf8?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1558997519-83ea9252edf8?q=80&w=400&auto=format&fit=crop"], desc:"Guarda-roupa casal com espelho nas portas, 6 portas e amplo espaço interno.", specs:{"Material":"MDF","Portas":"6","Espelho":"Sim","Garantia":"12 meses"}, badges:['full','montagem'] },
+  { id:3, title:"Smart TV 50\" TCL 4K UHD QLED 50P7L", categoria:"eletronicos", rating:"4.9", reviews:"2664", price:"2.374,05", old:"2.499,00", pix:5, inst:"10x de R$ 237,40", peso:12, img:"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=400&auto=format&fit=crop"], desc:"Smart TV TCL de 50 polegadas com tecnologia QLED 4K UHD, Android TV.", specs:{"Tela":"50\" QLED 4K","Sistema":"Android TV","Garantia":"12 meses"}, badges:['full'] },
+  { id:4, title:"Apple iPhone 17 256GB Branco 6,3\" 48MP iOS", categoria:"celulares", rating:"4.9", reviews:"1378", price:"5.699,00", old:"6.332,22", pix:10, inst:"10x de R$ 569,90", peso:0.4, img:"https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=400&auto=format&fit=crop"], desc:"iPhone 17 com 256GB, tela de 6,3\", câmera de 48MP e chip A18 Bionic.", specs:{"Tela":"6,3\" OLED","Armazenamento":"256GB","Câmera":"48MP","Garantia":"12 meses"}, badges:['full','oferta'] },
+  { id:5, title:"Guarda Roupa Casal Madesa Mônaco 3 Portas", categoria:"moveis", rating:"4.3", reviews:"3026", price:"838,39", old:"1.047,99", pix:20, inst:"10x de R$ 83,84", peso:40, img:"https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?q=80&w=400&auto=format&fit=crop"], desc:"Guarda-roupa casal Mônaco com 3 portas e ótimo espaço interno.", specs:{"Marca":"Madesa","Material":"MDP","Portas":"3","Garantia":"12 meses"}, badges:['full','montagem'] },
+  { id:6, title:"Guarda Roupa Casal Hera MDF 8 Portas e 4 Gavetas", categoria:"moveis", rating:"4.3", reviews:"14610", price:"1.278,31", old:"1.420,34", pix:10, inst:"10x de R$ 127,83", peso:65, img:"https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=400&auto=format&fit=crop"], desc:"Guarda-roupa casal Hera MDF com 8 portas e 4 gavetas.", specs:{"Material":"MDF","Portas":"8","Gavetas":"4","Garantia":"12 meses"}, badges:['full','montagem'] },
+  { id:7, title:"Jogo de Panelas Brinox Revestimento Cerâmico", categoria:"cozinha", rating:"4.9", reviews:"18532", price:"439,00", old:"439,00", pix:5, inst:"10x de R$ 43,90", peso:5, img:"https://images.unsplash.com/photo-1584990347449-a6eb431b1109?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1584990347449-a6eb431b1109?q=80&w=400&auto=format&fit=crop"], desc:"Jogo de panelas com revestimento cerâmico antiaderente.", specs:{"Marca":"Brinox","Peças":"5","Revestimento":"Cerâmico","Garantia":"12 meses"}, badges:['full'] },
+  { id:8, title:"Sofá 5 Lugares Retrátil Reclinável Veludo", categoria:"moveis", rating:"4.7", reviews:"135", price:"2.609,91", old:"2.899,90", pix:10, inst:"10x de R$ 260,99", peso:60, img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=400&auto=format&fit=crop"], desc:"Sofá 5 lugares retrátil e reclinável em veludo.", specs:{"Lugares":"5","Tecido":"Veludo","Retrátil":"Sim","Garantia":"12 meses"}, badges:['full'] },
+  { id:9, title:"Ventilador de Mesa Turbo 6 Pás 40cm 127v", categoria:"eletrodomesticos", rating:"4.5", reviews:"1234", price:"139,20", old:"145,00", pix:0, inst:"1x sem juros", peso:3, img:"https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop"], desc:"Ventilador de mesa turbo com 6 pás de 40cm.", specs:{"Pás":"6","Diâmetro":"40cm","Voltagem":"127v","Garantia":"12 meses"}, badges:['full'] },
+  { id:10, title:"Ventilador de Mesa 40cm Super Power", categoria:"eletrodomesticos", rating:"5.0", reviews:"18", price:"138,60", old:"154,00", pix:0, inst:"1x sem juros", peso:3, img:"https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop"], desc:"Ventilador de mesa Super Power, 40cm.", specs:{"Diâmetro":"40cm","Voltagem":"Bivolt","Garantia":"12 meses"}, badges:['full'] },
+  { id:11, title:"Ventilador de Mesa Turbo 6 Pás 30cm 220v", categoria:"eletrodomesticos", rating:"4.4", reviews:"120", price:"162,24", old:"169,00", pix:0, inst:"1x sem juros", peso:2.5, img:"https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop"], desc:"Ventilador de mesa turbo, 30cm, 6 pás.", specs:{"Pás":"6","Diâmetro":"30cm","Voltagem":"220v","Garantia":"12 meses"}, badges:['full'] },
+  { id:12, title:"Ventilador de Pedestal 6 Pás 65W", categoria:"eletrodomesticos", rating:"", reviews:"", price:"279,99", old:"279,99", pix:0, inst:"5x de R$ 56,00", peso:5, img:"https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop"], desc:"Ventilador de pedestal com 6 pás e 65W.", specs:{"Pás":"6","Potência":"65W","Garantia":"12 meses"}, badges:['full'] },
+  { id:13, title:"Ventilador Prime Air 36cm Maxx Force 6 Pás", categoria:"eletrodomesticos", rating:"4.3", reviews:"170", price:"104,41", old:"109,90", pix:5, inst:"1x sem juros", peso:2, img:"https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591129841117-3adfd313e34f?q=80&w=400&auto=format&fit=crop"], desc:"Ventilador Prime Air Maxx Force, 36cm, 6 pás.", specs:{"Diâmetro":"36cm","Pás":"6","Garantia":"12 meses"}, badges:['imperdivel'] },
+  { id:14, title:"Lavadora de Roupas Consul 14kg Cesto Inox", categoria:"eletrodomesticos", rating:"4.8", reviews:"573", price:"1.599,00", old:"1.683,16", pix:5, inst:"10x de R$ 159,90", peso:42, img:"https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?q=80&w=400&auto=format&fit=crop"], desc:"Lavadora de roupas Consul com 14kg de capacidade.", specs:{"Marca":"Consul","Capacidade":"14kg","Garantia":"12 meses"}, badges:['full'] },
+  { id:15, title:"Geladeira/Refrigerador Electrolux Frost Free", categoria:"eletrodomesticos", rating:"4.8", reviews:"1132", price:"4.999,00", old:"5.318,09", pix:12, inst:"10x de R$ 499,90", peso:65, img:"https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?q=80&w=400&auto=format&fit=crop"], desc:"Geladeira Electrolux Frost Free, 400L.", specs:{"Marca":"Electrolux","Capacidade":"400L","Garantia":"12 meses"}, badges:['full'] },
+  { id:16, title:"Celular Samsung Galaxy A07 128GB Preto 4GB RAM", categoria:"celulares", rating:"4.8", reviews:"34732", price:"798,30", old:"887,00", pix:10, inst:"7x de R$ 114,04", peso:0.3, img:"https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=400&auto=format&fit=crop"], desc:"Samsung Galaxy A07 com 128GB e 4GB RAM.", specs:{"Marca":"Samsung","Armazenamento":"128GB","Garantia":"12 meses"}, badges:['full'] },
+
+  /* ============ INFORMÁTICA ============ */
+  { id:17, title:"Notebook Lenovo IdeaPad 3 Intel Core i5 8GB 256GB SSD", categoria:"informatica", rating:"4.7", reviews:"3421", price:"2.899,00", old:"3.299,00", pix:5, inst:"10x de R$ 289,90", peso:2.1, img:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=400&auto=format&fit=crop","https://images.unsplash.com/photo-1588702547919-26089e690ecc?q=80&w=400&auto=format&fit=crop"], desc:"Notebook Lenovo IdeaPad 3 com processador Intel Core i5, 8GB de RAM e SSD de 256GB.", specs:{"Marca":"Lenovo","Processador":"Intel Core i5","RAM":"8GB","Garantia":"12 meses"}, badges:['full'] },
+  { id:18, title:"Monitor Gamer LG 24\" Full HD 75Hz IPS HDMI", categoria:"informatica", rating:"4.8", reviews:"1892", price:"749,00", old:"849,00", pix:5, inst:"10x de R$ 74,90", peso:3.5, img:"https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=400&auto=format&fit=crop"], desc:"Monitor LG de 24 polegadas com painel IPS e resolução Full HD.", specs:{"Marca":"LG","Tela":"24\" IPS","Resolução":"1920x1080","Garantia":"12 meses"}, badges:['full'] },
+  { id:19, title:"Teclado Mecânico Gamer Redragon Kumara RGB Switch Red", categoria:"informatica", rating:"4.9", reviews:"5678", price:"219,90", old:"259,00", pix:10, inst:"10x de R$ 21,99", peso:1.0, img:"https://images.unsplash.com/photo-1595044426077-d36d9236d54a?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1595044426077-d36d9236d54a?q=80&w=400&auto=format&fit=crop"], desc:"Teclado mecânico Redragon Kumara com switches Red e iluminação RGB.", specs:{"Marca":"Redragon","Switch":"Red","Layout":"ABNT2","Garantia":"12 meses"}, badges:['full','imperdivel'] },
+  { id:20, title:"Mouse Gamer Logitech G203 Lightsync RGB 8000 DPI", categoria:"informatica", rating:"4.8", reviews:"8234", price:"129,90", old:"159,00", pix:5, inst:"6x de R$ 21,65", peso:0.2, img:"https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?q=80&w=400&auto=format&fit=crop"], desc:"Mouse gamer Logitech G203 com sensor de 8000 DPI e RGB Lightsync.", specs:{"Marca":"Logitech","Sensor":"8000 DPI","Garantia":"24 meses"}, badges:['full'] },
+  { id:21, title:"Headset Gamer HyperX Cloud Stinger 2 Drivers 50mm", categoria:"informatica", rating:"4.7", reviews:"2341", price:"349,90", old:"429,00", pix:5, inst:"10x de R$ 34,99", peso:0.4, img:"https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=400&auto=format&fit=crop"], desc:"Headset HyperX Cloud Stinger 2 com drivers de 50mm e som surround DTS.", specs:{"Marca":"HyperX","Drivers":"50mm","Garantia":"24 meses"}, badges:['full'] },
+  { id:22, title:"Webcam Logitech C920 Full HD 1080p com Microfone", categoria:"informatica", rating:"4.8", reviews:"4120", price:"449,00", old:"549,00", pix:8, inst:"10x de R$ 44,90", peso:0.2, img:"https://images.unsplash.com/photo-1587826080692-f439cd0b70da?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1587826080692-f439cd0b70da?q=80&w=400&auto=format&fit=crop"], desc:"Webcam Logitech C920 com vídeo Full HD 1080p.", specs:{"Marca":"Logitech","Resolução":"1080p","Garantia":"12 meses"}, badges:['full','oferta'] },
+  { id:23, title:"SSD Kingston NV2 1TB NVMe M.2 PCIe 4.0", categoria:"informatica", rating:"4.9", reviews:"9876", price:"379,90", old:"449,00", pix:10, inst:"10x de R$ 37,99", peso:0.1, img:"https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?q=80&w=400&auto=format&fit=crop"], desc:"SSD Kingston NV2 de 1TB com interface NVMe PCIe 4.0.", specs:{"Marca":"Kingston","Capacidade":"1TB","Leitura":"Até 3500MB/s","Garantia":"36 meses"}, badges:['full','imperdivel'] },
+  { id:24, title:"Impressora Multifuncional Epson EcoTank L3250 Wi-Fi", categoria:"informatica", rating:"4.6", reviews:"3452", price:"1.199,00", old:"1.399,00", pix:10, inst:"10x de R$ 119,90", peso:5.0, img:"https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=400&auto=format&fit=crop"], desc:"Impressora multifuncional Epson EcoTank L3250 com tanque de tinta.", specs:{"Marca":"Epson","Tecnologia":"Tanque de tinta","Garantia":"12 meses"}, badges:['full'] },
+  { id:25, title:"Roteador Wi-Fi 6 TP-Link Archer AX1800 Dual Band", categoria:"informatica", rating:"4.7", reviews:"1567", price:"389,00", old:"459,00", pix:5, inst:"10x de R$ 38,90", peso:0.5, img:"https://images.unsplash.com/photo-1606904825846-647eb07f5be2?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1606904825846-647eb07f5be2?q=80&w=400&auto=format&fit=crop"], desc:"Roteador TP-Link Archer AX1800 com tecnologia Wi-Fi 6.", specs:{"Marca":"TP-Link","Padrão":"Wi-Fi 6","Garantia":"12 meses"}, badges:['full'] },
+  { id:26, title:"HD Externo Seagate Expansion 2TB USB 3.0 Portátil", categoria:"informatica", rating:"4.8", reviews:"6734", price:"449,00", old:"499,00", pix:5, inst:"10x de R$ 44,90", peso:0.3, img:"https://images.unsplash.com/photo-1591405351990-4726e331f141?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591405351990-4726e331f141?q=80&w=400&auto=format&fit=crop"], desc:"HD externo Seagate Expansion de 2TB, conexão USB 3.0.", specs:{"Marca":"Seagate","Capacidade":"2TB","Garantia":"12 meses"}, badges:['full'] },
+
+  /* ============ BELEZA, ESPORTE, GAMES ============ */
+  { id:27, title:"Secador de Cabelo Taiff Tourmaline 2000W", categoria:"beleza", rating:"4.9", reviews:"1250", price:"239,90", old:"289,90", pix:10, inst:"10x de R$ 23,99", peso:0.6, img:"https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=400&auto=format&fit=crop"], desc:"Secador profissional Taiff com tecnologia Tourmaline, 2000W de potência.", specs:{"Marca":"Taiff","Potência":"2000W","Garantia":"12 meses"}, badges:['full'] },
+  { id:28, title:"Perfume Feminino Floratta Red 75ml", categoria:"beleza", rating:"4.8", reviews:"5400", price:"129,90", old:"159,00", pix:5, inst:"10x de R$ 12,99", peso:0.3, img:"https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop"], desc:"Desodorante colônia Floratta Red, fragrância floral frutada.", specs:{"Marca":"O Boticário","Volume":"75ml","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:29, title:"Fone de Ouvido Bluetooth JBL Tune 510BT", categoria:"beleza", rating:"4.7", reviews:"8900", price:"219,00", old:"299,00", pix:8, inst:"10x de R$ 21,90", peso:0.2, img:"https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=400&auto=format&fit=crop"], desc:"Fone JBL on-ear com som Pure Bass e até 40 horas de bateria.", specs:{"Marca":"JBL","Bateria":"40h","Garantia":"12 meses"}, badges:['full', 'oferta'] },
+  { id:30, title:"Creme Hidratante Facial Nivea 50g", categoria:"beleza", rating:"4.9", reviews:"3100", price:"34,90", old:"42,90", pix:0, inst:"1x sem juros", peso:0.1, img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400&auto=format&fit=crop"], desc:"Hidratante facial Nivea com ácido hialurônico.", specs:{"Marca":"Nivea","Volume":"50g","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:31, title:"Escova Secadora Britânia 1300W Íons", categoria:"beleza", rating:"4.5", reviews:"870", price:"169,90", old:"199,90", pix:10, inst:"10x de R$ 16,99", peso:0.5, img:"https://images.unsplash.com/photo-1589828128429-288b7b87c1a4?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1589828128429-288b7b87c1a4?q=80&w=400&auto=format&fit=crop"], desc:"Escova secadora e modeladora Britânia com 1300W.", specs:{"Marca":"Britânia","Potência":"1300W","Garantia":"12 meses"}, badges:['full'] },
+  { id:32, title:"Tênis de Corrida Nike Revolution 6", categoria:"esporte", rating:"4.8", reviews:"2100", price:"299,90", old:"399,90", pix:5, inst:"10x de R$ 29,99", peso:0.8, img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop"], desc:"Tênis Nike Revolution 6 com amortecimento macio.", specs:{"Marca":"Nike","Indicação":"Corrida","Garantia":"Contra defeito"}, badges:['full', 'oferta'] },
+  { id:33, title:"Bicicleta Aro 29 Mountain Bike 21 Marchas", categoria:"esporte", rating:"4.6", reviews:"450", price:"1.499,00", old:"1.899,00", pix:10, inst:"10x de R$ 149,90", peso:18.0, img:"https://images.unsplash.com/photo-1485965120184-e220f721d03e?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1485965120184-e220f721d03e?q=80&w=400&auto=format&fit=crop"], desc:"Bicicleta aro 29 com quadro de alumínio e 21 marchas.", specs:{"Aro":"29","Marchas":"21","Garantia":"3 meses"}, badges:['full'] },
+  { id:34, title:"Kit Halteres Emborrachados 2x5kg", categoria:"esporte", rating:"4.9", reviews:"320", price:"129,90", old:"159,90", pix:5, inst:"6x de R$ 21,65", peso:10.0, img:"https://images.unsplash.com/photo-1586401100295-7a8096fd231a?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1586401100295-7a8096fd231a?q=80&w=400&auto=format&fit=crop"], desc:"Par de halteres emborrachados de 5kg cada.", specs:{"Peso":"2x 5kg","Garantia":"3 meses"}, badges:['full'] },
+  { id:35, title:"Bola de Futebol Campo Penalty S11", categoria:"esporte", rating:"4.7", reviews:"1500", price:"149,90", old:"189,90", pix:5, inst:"5x de R$ 29,98", peso:0.5, img:"https://images.unsplash.com/photo-1614632537190-23e4146777db?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1614632537190-23e4146777db?q=80&w=400&auto=format&fit=crop"], desc:"Bola de futebol de campo Penalty S11.", specs:{"Marca":"Penalty","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:36, title:"Garrafa Térmica Inox 1L Stanley", categoria:"esporte", rating:"4.9", reviews:"4300", price:"219,00", old:"249,00", pix:5, inst:"10x de R$ 21,90", peso:0.6, img:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=400&auto=format&fit=crop"], desc:"Garrafa térmica Stanley em aço inoxidável.", specs:{"Marca":"Stanley","Capacidade":"1L","Garantia":"Vitalícia"}, badges:['full', 'imperdivel'] },
+  { id:37, title:"Console PlayStation 5 Slim 1TB", categoria:"games", rating:"4.9", reviews:"8500", price:"3.699,00", old:"4.199,00", pix:5, inst:"10x de R$ 369,90", peso:3.2, img:"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=400&auto=format&fit=crop"], desc:"Console PlayStation 5 Slim com SSD de 1TB.", specs:{"Marca":"Sony","Armazenamento":"1TB","Garantia":"12 meses"}, badges:['full', 'oferta'] },
+  { id:38, title:"Controle Sem Fio Xbox Series X|S Carbon Black", categoria:"games", rating:"4.8", reviews:"3100", price:"399,00", old:"499,00", pix:10, inst:"10x de R$ 39,90", peso:0.3, img:"https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?q=80&w=400&auto=format&fit=crop"], desc:"Controle sem fio Xbox Series X|S.", specs:{"Marca":"Xbox","Conexão":"Bluetooth","Garantia":"3 meses"}, badges:['full'] },
+  { id:39, title:"LEGO Classic Caixa de Peças Criativas 790 Peças", categoria:"games", rating:"4.9", reviews:"1200", price:"249,90", old:"299,90", pix:5, inst:"10x de R$ 24,99", peso:1.0, img:"https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?q=80&w=400&auto=format&fit=crop"], desc:"Caixa LEGO Classic com 790 peças coloridas.", specs:{"Marca":"LEGO","Peças":"790","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:40, title:"Boneca Barbie Fashionista com Cadeira de Rodas", categoria:"games", rating:"4.8", reviews:"650", price:"119,90", old:"149,90", pix:0, inst:"5x de R$ 23,98", peso:0.4, img:"https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=400&auto=format&fit=crop"], desc:"Boneca Barbie Fashionista com cadeira de rodas.", specs:{"Marca":"Mattel","Idade":"3+ anos","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:41, title:"Jogo de Tabuleiro Banco Imobiliário Estrela", categoria:"games", rating:"4.7", reviews:"2400", price:"89,90", old:"119,90", pix:5, inst:"3x de R$ 29,96", peso:1.2, img:"https://images.unsplash.com/photo-1611891487122-207579d67d98?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1611891487122-207579d67d98?q=80&w=400&auto=format&fit=crop"], desc:"O clássico jogo de tabuleiro Banco Imobiliário.", specs:{"Marca":"Estrela","Jogadores":"2 a 6","Garantia":"Contra defeito"}, badges:['full'] },
+
+  /* ============ PET, FERRAMENTAS, MODA, LIVROS ============ */
+  { id:42, title:"Ração Golden Fórmula Cães Adultos 15kg", categoria:"pet", rating:"4.9", reviews:"5430", price:"229,90", old:"279,90", pix:5, inst:"10x de R$ 22,99", peso:15.5, img:"https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=400&auto=format&fit=crop"], desc:"Ração premium especial para cães adultos.", specs:{"Marca":"Golden","Peso":"15kg","Garantia":"Contra defeito"}, badges:['full','oferta'] },
+  { id:43, title:"Arranhador para Gatos com Brinquedo", categoria:"pet", rating:"4.8", reviews:"1200", price:"89,90", old:"129,90", pix:10, inst:"5x de R$ 17,98", peso:3.0, img:"https://images.unsplash.com/photo-1545249390-6bdfa286032f?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1545249390-6bdfa286032f?q=80&w=400&auto=format&fit=crop"], desc:"Arranhador de sisal com plataformas e brinquedo.", specs:{"Material":"Sisal","Garantia":"3 meses"}, badges:['full'] },
+  { id:44, title:"Coleira Peitoral Antipuxão para Cães Grandes", categoria:"pet", rating:"4.7", reviews:"850", price:"59,90", old:"79,90", pix:5, inst:"3x de R$ 19,96", peso:0.4, img:"https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=400&auto=format&fit=crop"], desc:"Peitoral ergonômico antipuxão ajustável.", specs:{"Tamanho":"GG","Material":"Nylon","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:45, title:"Cama para Cachorro Igloo Cobertor Macio", categoria:"pet", rating:"4.9", reviews:"2100", price:"149,90", old:"189,90", pix:10, inst:"10x de R$ 14,99", peso:1.5, img:"https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?q=80&w=400&auto=format&fit=crop"], desc:"Cama tipo igloo com cobertor ultra macio.", specs:{"Tamanho":"M","Material":"Pelúcia","Garantia":"3 meses"}, badges:['full','imperdivel'] },
+  { id:46, title:"Brinquedo Mordedor Osso Nylon Resistente", categoria:"pet", rating:"4.6", reviews:"3400", price:"29,90", old:"39,90", pix:0, inst:"1x sem juros", peso:0.2, img:"https://images.unsplash.com/photo-1576201836106-db1758fd1c97?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1576201836106-db1758fd1c97?q=80&w=400&auto=format&fit=crop"], desc:"Mordedor em náilon atóxico e resistente.", specs:{"Material":"Nylon","Tamanho":"Médio","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:47, title:"Furadeira de Impacto Bosch 650W", categoria:"ferramentas", rating:"4.9", reviews:"3200", price:"349,00", old:"419,00", pix:5, inst:"10x de R$ 34,90", peso:2.2, img:"https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=400&auto=format&fit=crop"], desc:"Furadeira de impacto Bosch com 650W de potência.", specs:{"Marca":"Bosch","Potência":"650W","Garantia":"12 meses"}, badges:['full','oferta'] },
+  { id:48, title:"Parafusadeira e Furadeira de Impacto Makita 12V", categoria:"ferramentas", rating:"4.8", reviews:"1800", price:"599,00", old:"749,00", pix:10, inst:"10x de R$ 59,90", peso:1.5, img:"https://images.unsplash.com/photo-1572981779307-38b8cabb2407?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1572981779307-38b8cabb2407?q=80&w=400&auto=format&fit=crop"], desc:"Parafusadeira Makita a bateria de 12V com 2 baterias.", specs:{"Marca":"Makita","Voltagem":"12V","Garantia":"12 meses"}, badges:['full'] },
+  { id:49, title:"Jogo de Chaves de Fenda e Philips 12 Peças", categoria:"ferramentas", rating:"4.7", reviews:"950", price:"79,90", old:"99,90", pix:5, inst:"3x de R$ 26,63", peso:0.8, img:"https://images.unsplash.com/photo-1530124566582-a618bc2615dc?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1530124566582-a618bc2615dc?q=80&w=400&auto=format&fit=crop"], desc:"Kit com 12 chaves (fenda e philips) em aço cromo-vanádio.", specs:{"Peças":"12","Material":"Cromo-Vanádio","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:50, title:"Trena a Laser 40m Mileseey", categoria:"ferramentas", rating:"4.8", reviews:"620", price:"199,00", old:"259,00", pix:10, inst:"6x de R$ 33,16", peso:0.2, img:"https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=400&auto=format&fit=crop"], desc:"Trena a laser digital de alta precisão.", specs:{"Alcance":"40m","Precisão":"±2mm","Garantia":"12 meses"}, badges:['full'] },
+  { id:51, title:"Caixa de Ferramentas Organizadora 17 Pol", categoria:"ferramentas", rating:"4.6", reviews:"1100", price:"69,90", old:"89,90", pix:0, inst:"3x de R$ 23,30", peso:1.8, img:"https://images.unsplash.com/photo-1581166397057-235af2b3c6dd?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1581166397057-235af2b3c6dd?q=80&w=400&auto=format&fit=crop"], desc:"Caixa de ferramentas em plástico rígido com bandeja interna.", specs:{"Tamanho":"17\"","Material":"Plástico Rígido","Garantia":"3 meses"}, badges:['full'] },
+  { id:52, title:"Camiseta Básica Algodão Premium Masculina", categoria:"moda", rating:"4.7", reviews:"5400", price:"49,90", old:"69,90", pix:5, inst:"2x de R$ 24,95", peso:0.3, img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=400&auto=format&fit=crop"], desc:"Camiseta 100% algodão penteado, modelagem confortável.", specs:{"Material":"100% Algodão","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:53, title:"Calça Jeans Skinny Feminina Cintura Alta", categoria:"moda", rating:"4.8", reviews:"3200", price:"129,90", old:"179,90", pix:10, inst:"5x de R$ 25,98", peso:0.6, img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=400&auto=format&fit=crop"], desc:"Calça jeans skinny com cintura alta e cós elástico.", specs:{"Material":"Jeans com Elastano","Corte":"Skinny","Garantia":"Contra defeito"}, badges:['full','oferta'] },
+  { id:54, title:"Tênis Casual Branco Masculino Couro", categoria:"moda", rating:"4.6", reviews:"2800", price:"189,90", old:"249,90", pix:5, inst:"10x de R$ 18,99", peso:0.9, img:"https://images.unsplash.com/photo-1600269452121-4f2416e55c28?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1600269452121-4f2416e55c28?q=80&w=400&auto=format&fit=crop"], desc:"Tênis casual em couro legítimo com solado antiderrapante.", specs:{"Material":"Couro","Cor":"Branco","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:55, title:"Bolsa Feminina de Couro Transversal", categoria:"moda", rating:"4.9", reviews:"1200", price:"219,00", old:"289,00", pix:10, inst:"10x de R$ 21,90", peso:0.5, img:"https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=400&auto=format&fit=crop"], desc:"Bolsa transversal em couro sintético premium.", specs:{"Material":"Couro Sintético","Garantia":"3 meses"}, badges:['full'] },
+  { id:56, title:"Relógio Masculino Aço Inox Prata", categoria:"moda", rating:"4.7", reviews:"860", price:"159,90", old:"219,90", pix:5, inst:"6x de R$ 26,65", peso:0.2, img:"https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=400&auto=format&fit=crop"], desc:"Relógio analógico masculino com pulseira de aço inoxidável.", specs:{"Material":"Aço Inox","Garantia":"12 meses"}, badges:['full'] },
+  { id:57, title:"Livro O Poder do Hábito - Charles Duhigg", categoria:"livros", rating:"4.9", reviews:"12000", price:"39,90", old:"59,90", pix:5, inst:"1x sem juros", peso:0.4, img:"https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=400&auto=format&fit=crop"], desc:"Best-seller que explora a ciência por trás da criação de hábitos.", specs:{"Autor":"Charles Duhigg","Páginas":"408","Garantia":"Contra defeito"}, badges:['full','imperdivel'] },
+  { id:58, title:"Caderno Inteligente Argolado A5 80 Folhas", categoria:"livros", rating:"4.8", reviews:"4500", price:"59,90", old:"79,90", pix:10, inst:"2x de R$ 29,95", peso:0.3, img:"https://images.unsplash.com/photo-1531346878377-a5be20888e57?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1531346878377-a5be20888e57?q=80&w=400&auto=format&fit=crop"], desc:"Caderno inteligente com discos, capa dura e folhas pautadas.", specs:{"Tamanho":"A5","Folhas":"80","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:59, title:"Kit Canetas Stabilo Ponta Fina 4 Cores", categoria:"livros", rating:"4.9", reviews:"2100", price:"24,90", old:"34,90", pix:0, inst:"1x sem juros", peso:0.1, img:"https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?q=80&w=400&auto=format&fit=crop"], desc:"Kit de canetas Stabilo ponta fina para escrita e desenho.", specs:{"Marca":"Stabilo","Cores":"4","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:60, title:"Mochila Escolar Notebook Impermeável", categoria:"livros", rating:"4.7", reviews:"3100", price:"149,90", old:"199,90", pix:5, inst:"5x de R$ 29,98", peso:0.8, img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=400&auto=format&fit=crop"], desc:"Mochila escolar com compartimento acolchoado e saída USB.", specs:{"Material":"Poliéster","Notebook":"Até 15,6\"","Garantia":"3 meses"}, badges:['full','oferta'] },
+  { id:61, title:"Planner Semanal 2024 Capa Dura", categoria:"livros", rating:"4.8", reviews:"890", price:"44,90", old:"59,90", pix:10, inst:"1x sem juros", peso:0.3, img:"https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=400&auto=format&fit=crop"], desc:"Planner semanal com visão mensal e capa dura.", specs:{"Formato":"A5","Ano":"2024","Garantia":"Contra defeito"}, badges:['full'] },
+
+  /* ============ BEBÊS, AUTOMOTIVO, INSTRUMENTOS, JARDIM (LEVA 4) ============ */
+  { id:62, title:"Carrinho de Bebê Travel System Reclina", categoria:"bebes", rating:"4.9", reviews:"1200", price:"1.299,00", old:"1.599,00", pix:10, inst:"10x de R$ 129,90", peso:12.0, img:"https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=400&auto=format&fit=crop"], desc:"Carrinho de bebê Travel System 3 em 1, com base para ovo e cadeirinha. Reclina em várias posições.", specs:{"Marca":"Galzerano","Material":"Alumínio","Garantia":"12 meses"}, badges:['full','oferta'] },
+  { id:63, title:"Fralda Pampers Premium Care M 72 Unidades", categoria:"bebes", rating:"4.9", reviews:"8500", price:"89,90", old:"109,90", pix:5, inst:"3x de R$ 29,96", peso:2.5, img:"https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=400&auto=format&fit=crop"], desc:"Fralda descartável Pampers Premium Care tamanho M, maciez e proteção contra vazamentos.", specs:{"Marca":"Pampers","Tamanho":"M","Qtd":"72 un","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:64, title:"Berço Americano 3 em 1 com Colchão", categoria:"bebes", rating:"4.7", reviews:"450", price:"799,00", old:"999,00", pix:10, inst:"10x de R$ 79,90", peso:18.0, img:"https://images.unsplash.com/photo-1595231718592-9aae1d0be205?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1595231718592-9aae1d0be205?q=80&w=400&auto=format&fit=crop"], desc:"Berço americano conversível em mini-cama e sofá. Acompanha colchão e protetor.", specs:{"Marca":"Bebê Confort","Material":"MDF","Garantia":"12 meses"}, badges:['full','montagem'] },
+  { id:65, title:"Cadeirinha para Auto Bebê Conforto", categoria:"bebes", rating:"4.8", reviews:"2100", price:"599,00", old:"749,00", pix:5, inst:"10x de R$ 59,90", peso:4.5, img:"https://images.unsplash.com/photo-1591158445076-86d1b5b1b0f9?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1591158445076-86d1b5b1b0f9?q=80&w=400&auto=format&fit=crop"], desc:"Cadeirinha para auto grupo 0+ com base e cinto de 3 pontos. Segurança e conforto para recém-nascidos.", specs:{"Marca":"Bebê Confort","Grupo":"0+","Garantia":"12 meses"}, badges:['full'] },
+  { id:66, title:"Kit Body Bebê Algodão 5 Peças", categoria:"bebes", rating:"4.9", reviews:"3400", price:"99,90", old:"129,90", pix:10, inst:"5x de R$ 19,98", peso:0.5, img:"https://images.unsplash.com/photo-1522771930-78848d9293e8?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1522771930-78848d9293e8?q=80&w=400&auto=format&fit=crop"], desc:"Kit com 5 bodies de manga curta em algodão macio e antialérgico.", specs:{"Material":"100% Algodão","Qtd":"5 peças","Garantia":"Contra defeito"}, badges:['full'] },
+
+  { id:67, title:"Bateria Automotiva Moura 60Ah", categoria:"automotivo", rating:"4.8", reviews:"1200", price:"459,00", old:"549,00", pix:5, inst:"10x de R$ 45,90", peso:15.0, img:"https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=400&auto=format&fit=crop"], desc:"Bateria automotiva Moura 60Ah, livre de manutenção, ideal para carros de passeio.", specs:{"Marca":"Moura","Amperagem":"60Ah","Garantia":"18 meses"}, badges:['full'] },
+  { id:68, title:"Óleo Motor Mobil 5W30 Sintético 1L", categoria:"automotivo", rating:"4.9", reviews:"4500", price:"49,90", old:"64,90", pix:10, inst:"2x de R$ 24,95", peso:1.0, img:"https://images.unsplash.com/photo-1620256290449-1c02966dc5f1?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1620256290449-1c02966dc5f1?q=80&w=400&auto=format&fit=crop"], desc:"Óleo lubrificante sintético Mobil 5W30 para motores a gasolina, álcool ou flex.", specs:{"Marca":"Mobil","Viscosidade":"5W30","Volume":"1L","Garantia":"Contra defeito"}, badges:['full'] },
+  { id:69, title:"Capota Marítima para Picape", categoria:"automotivo", rating:"4.6", reviews:"320", price:"899,00", old:"1099,00", pix:5, inst:"10x de R$ 89,90", peso:8.0, img:"https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=400&auto=format&fit=crop"], desc:"Capota marítima em PVC resistente com estrutura de alumínio. Proteção para a caçamba.", specs:{"Material":"PVC","Garantia":"6 meses"}, badges:['full'] },
+  { id:70, title:"Aspirador de Pó Automotivo Portátil 12V", categoria:"automotivo", rating:"4.7", reviews:"2100", price:"89,90", old:"119,90", pix:10, inst:"3x de R$ 29,96", peso:0.8, img:"https://images.unsplash.com/photo-1558389186-438424b00a68?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1558389186-438424b00a68?q=80&w=400&auto=format&fit=crop"], desc:"Aspirador portátil para carro com conexão 12V (acendedor). Potente e compacto.", specs:{"Voltagem":"12V","Potência":"120W","Garantia":"3 meses"}, badges:['full'] },
+  { id:71, title:"Central Multimídia 7\" Android Bluetooth", categoria:"automotivo", rating:"4.5", reviews:"680", price:"799,00", old:"999,00", pix:5, inst:"10x de R$ 79,90", peso:2.0, img:"https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?q=80&w=400&auto=format&fit=crop"], desc:"Central multimídia automotiva de 7 polegadas com Android, GPS, Bluetooth e espelhamento.", specs:{"Tela":"7\"","Sistema":"Android","Garantia":"12 meses"}, badges:['full','oferta'] },
+
+  { id:72, title:"Violão Acústico Tagima Dallas Nylon", categoria:"instrumentos", rating:"4.8", reviews:"1200", price:"499,00", old:"649,00", pix:5, inst:"10x de R$ 49,90", peso:3.0, img:"https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=400&auto=format&fit=crop"], desc:"Violão acústico Tagima Dallas com cordas de nylon, tampo em spruce e braço em cedro.", specs:{"Marca":"Tagima","Cordas":"Nylon","Garantia":"6 meses"}, badges:['full'] },
+  { id:73, title:"Teclado Musical Yamaha PSR-E373", categoria:"instrumentos", rating:"4.9", reviews:"850", price:"1.399,00", old:"1.699,00", pix:10, inst:"10x de R$ 139,90", peso:4.5, img:"https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=400&auto=format&fit=crop"], desc:"Teclado Yamaha PSR-E373 com 61 teclas, 622 timbres e função de aprendizado.", specs:{"Marca":"Yamaha","Teclas":"61","Garantia":"12 meses"}, badges:['full','oferta'] },
+  { id:74, title:"Guitarra Elétrica Stratocaster Sunburst", categoria:"instrumentos", rating:"4.7", reviews:"600", price:"999,00", old:"1.299,00", pix:5, inst:"10x de R$ 99,90", peso:4.0, img:"https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=400&auto=format&fit=crop"], desc:"Guitarra elétrica estilo Stratocaster, 3 captadores single-coil e acabamento Sunburst.", specs:{"Modelo":"Stratocaster","Captadores":"3 Single","Garantia":"6 meses"}, badges:['full'] },
+  { id:75, title:"Pandeiro Contemporânea 10\" Pele Sintética", categoria:"instrumentos", rating:"4.8", reviews:"1100", price:"149,90", old:"189,90", pix:10, inst:"5x de R$ 29,98", peso:0.6, img:"https://images.unsplash.com/photo-1596342121320-79e44e7d3768?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1596342121320-79e44e7d3768?q=80&w=400&auto=format&fit=crop"], desc:"Pandeiro Contemporânea 10 polegadas com pele sintética e platinelas duplas.", specs:{"Marca":"Contemporânea","Tamanho":"10\"","Garantia":"6 meses"}, badges:['full'] },
+  { id:76, title:"Microfone Condensador USB Streaming", categoria:"instrumentos", rating:"4.8", reviews:"2300", price:"349,00", old:"449,00", pix:5, inst:"10x de R$ 34,90", peso:0.5, img:"https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=400&auto=format&fit=crop"], desc:"Microfone condensador USB para podcasts, streaming e gravação. Plug and play.", specs:{"Conexão":"USB","Padrão":"Cardioide","Garantia":"12 meses"}, badges:['full'] },
+
+  { id:77, title:"Cortador de Grama Elétrico 1200W", categoria:"jardim", rating:"4.7", reviews:"980", price:"499,00", old:"629,00", pix:5, inst:"10x de R$ 49,90", peso:9.0, img:"https://images.unsplash.com/photo-1592424001802-4c5e2e9e8b3b?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1592424001802-4c5e2e9e8b3b?q=80&w=400&auto=format&fit=crop"], desc:"Cortador de grama elétrico com 1200W, altura ajustável e coletor de resíduos.", specs:{"Potência":"1200W","Voltagem":"127v","Garantia":"12 meses"}, badges:['full'] },
+  { id:78, title:"Mangueira de Jardim 15m com Conector", categoria:"jardim", rating:"4.6", reviews:"2200", price:"79,90", old:"99,90", pix:10, inst:"3x de R$ 26,63", peso:2.0, img:"https://images.unsplash.com/photo-1599819721519-557522c07999?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1599819721519-557522c07999?q=80&w=400&auto=format&fit=crop"], desc:"Mangueira de jardim trançada de 15 metros, resistente e flexível. Acompanha conectores.", specs:{"Comprimento":"15m","Material":"PVC","Garantia":"3 meses"}, badges:['full'] },
+  { id:79, title:"Conjunto de Jardim 4 Peças Fibra Sintética", categoria:"jardim", rating:"4.8", reviews:"450", price:"899,00", old:"1.199,00", pix:5, inst:"10x de R$ 89,90", peso:12.0, img:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=400&auto=format&fit=crop"], desc:"Conjunto de jardim com 1 mesa e 3 cadeiras em fibra sintética e estrutura de alumínio.", specs:{"Peças":"4","Material":"Fibra Sintética","Garantia":"3 meses"}, badges:['full'] },
+  { id:80, title:"Churrasqueira a Carvão com Tampa", categoria:"jardim", rating:"4.9", reviews:"1600", price:"299,00", old:"389,00", pix:10, inst:"10x de R$ 29,90", peso:8.0, img:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=400&auto=format&fit=crop"], desc:"Churrasqueira a carvão com tampa, grelha cromada e cinzeiro removível. Ideal para áreas externas.", specs:{"Material":"Aço","Combustível":"Carvão","Garantia":"6 meses"}, badges:['full','imperdivel'] },
+  { id:81, title:"Kit Ferramentas de Jardim 5 Peças", categoria:"jardim", rating:"4.7", reviews:"3100", price:"69,90", old:"89,90", pix:0, inst:"3x de R$ 23,30", peso:1.5, img:"https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?q=80&w=400&auto=format&fit=crop", imgs:["https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?q=80&w=400&auto=format&fit=crop"], desc:"Kit com 5 ferramentas de jardinagem: pá, rastelo, tesoura, transplantador e luvas.", specs:{"Peças":"5","Material":"Aço com cabo de madeira","Garantia":"Contra defeito"}, badges:['full'] }
+];
+
+/* ============ ESTADO ============ */
+let carrinho = [];
+let favoritos = JSON.parse(localStorage.getItem('magalu_favs')) || [];
+let formaPagamento = 'pix';
+let freteSelecionado = null;
+let cepAtual = localStorage.getItem('magalu_cep') || '';
+let produtoAtual = null;
+let qtdProdutoModal = 1;
+let filtroCategoria = 'todas';
+let filtroBusca = '';
+let filtroChip = null;
+let ordenacaoAtual = 'relevancia';
+let cupomAplicado = null;
+
+const cuponsValidos = {
+  'MAGALU10': { desc: '10% OFF', tipo: 'percent', valor: 10 },
+  'PRIMEIRACOMPRA': { desc: 'R$ 30 OFF', tipo: 'fixed', valor: 30 }
+};
+
+const fallbackImg = "https://cdn-icons-png.flaticon.com/512/679/679720.png";
+
+/* ============ UTILS ============ */
+function parseBRL(str) { return parseFloat(str.replace(/\./g, '').replace(',', '.')); }
+function formatBRL(v) { return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
+function calcPrecoPix(prod) { return parseBRL(prod.price) * (1 - (prod.pix || 0) / 100); }
+function calcDescontoPixCarrinho() { return carrinho.reduce((acc, i) => acc + (i.precoNum * (i.pix || 0) / 100 * i.qtd), 0); }
+
+function showToast(msg, type='success') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type === 'error' ? 'error' : '');
+  el.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i> <span>${msg}</span>`;
+  document.getElementById('toast-container').appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 3200);
+}
+
+function mascaraCEP(input) { let v = input.value.replace(/\D/g, '').slice(0, 8); if (v.length > 5) v = v.replace(/(\d{5})(\d)/, '$1-$2'); input.value = v; }
+function mascaraCPF(input) { let v = input.value.replace(/\D/g, '').slice(0, 11); v = v.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2'); input.value = v; }
+function mascaraCartao(input) { let v = input.value.replace(/\D/g, '').slice(0, 16); v = v.replace(/(\d{4})(?=\d)/g, '$1 '); input.value = v; }
+function mascaraValidade(input) { let v = input.value.replace(/\D/g, '').slice(0, 4); if (v.length >= 3) v = v.replace(/(\d{2})(\d)/, '$1/$2'); input.value = v; }
+function mascaraTelefone(input) { let v = input.value.replace(/\D/g, '').slice(0, 11); if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3'); else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3'); else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2'); else if (v.length > 0) v = v.replace(/^(\d*)/, '($1'); input.value = v; }
+function validarCPF(cpf) {
+  cpf = cpf.replace(/\D/g, '');
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+  let s = 0; for (let i = 0; i < 9; i++) s += parseInt(cpf[i]) * (10 - i);
+  let d1 = (s * 10) % 11; if (d1 === 10) d1 = 0; if (d1 !== parseInt(cpf[9])) return false;
+  s = 0; for (let i = 0; i < 10; i++) s += parseInt(cpf[i]) * (11 - i);
+  let d2 = (s * 10) % 11; if (d2 === 10) d2 = 0; return d2 === parseInt(cpf[10]);
+}
+
+/* ============ PERSISTÊNCIA ============ */
+function salvarCarrinho() { localStorage.setItem('magalu_carrinho', JSON.stringify(carrinho.map(i => ({ id: i.id, qtd: i.qtd })))); }
+function carregarCarrinho() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('magalu_carrinho') || '[]');
+    carrinho = saved.map(s => {
+      const prod = produtos.find(p => p.id === s.id);
+      if (!prod) return null;
+      return { ...prod, precoNum: parseBRL(prod.price), qtd: s.qtd };
+    }).filter(Boolean);
+  } catch { carrinho = []; }
+}
+
+/* ============ FAVORITOS ============ */
+function toggleFavorito(id, event) {
+  if (event) event.stopPropagation();
+  const idx = favoritos.indexOf(id);
+  if (idx === -1) { favoritos.push(id); showToast("Adicionado aos favoritos!"); }
+  else { favoritos.splice(idx, 1); showToast("Removido dos favoritos."); }
+  localStorage.setItem('magalu_favs', JSON.stringify(favoritos));
+  renderVitrine();
+  atualizarBadges();
+}
+
+function abrirFavoritos() {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  const chipFav = document.querySelector('.chip[data-chip="favoritos"]');
+  if(chipFav) chipFav.classList.add('active');
+  filtroChip = 'favoritos';
+  filtroCategoria = 'todas';
+  document.querySelectorAll('.nav-categorias a').forEach(a => a.classList.remove('active'));
+  document.getElementById('section-title').textContent = 'Meus Favoritos';
+  renderVitrine();
+}
+
+function atualizarBadges() {
+  const favBadge = document.getElementById('fav-badge');
+  if (favoritos.length > 0) { favBadge.textContent = favoritos.length; favBadge.style.display = 'block'; }
+  else favBadge.style.display = 'none';
+}
+
+/* ============ FILTROS E RENDER ============ */
+function aplicarFiltros() {
+  filtroBusca = document.getElementById('busca').value.trim();
+  document.getElementById('btn-clear').classList.toggle('show', filtroBusca.length > 0);
+  renderVitrine();
+}
+function limparBusca() {
+  document.getElementById('busca').value = ''; filtroBusca = '';
+  document.getElementById('btn-clear').classList.remove('show'); renderVitrine();
+}
+function filtrarCategoria(cat, el) {
+  filtroCategoria = cat; filtroChip = null;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.nav-categorias a').forEach(a => a.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('section-title').textContent = cat === 'todas' ? 'Para descobrir e aproveitar' : (cat === 'ofertas' ? 'Ofertas do Dia' : el.textContent);
+  renderVitrine();
+}
+function resetarFiltros() {
+  filtroCategoria = 'todas'; filtroBusca = ''; filtroChip = null; ordenacaoAtual = 'relevancia';
+  document.getElementById('busca').value = '';
+  document.getElementById('ordenacao').value = 'relevancia';
+  document.querySelectorAll('.nav-categorias a').forEach(a => a.classList.toggle('active', a.dataset.cat === 'todas'));
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('section-title').textContent = 'Para descobrir e aproveitar';
+  renderVitrine();
+}
+function toggleChip(tipo, el) {
+  if (filtroChip === tipo) { filtroChip = null; el.classList.remove('active'); }
+  else { filtroChip = tipo; document.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); }
+  renderVitrine();
+}
+function ordenar(val) { ordenacaoAtual = val; renderVitrine(); }
+
+function renderVitrine() {
+  const grid = document.getElementById('grid-produtos');
+  let lista = [...produtos];
+
+  if (filtroCategoria !== 'todas') {
+    if (filtroCategoria === 'ofertas') lista = lista.filter(p => parseBRL(p.old) > parseBRL(p.price));
+    else lista = lista.filter(p => p.categoria === filtroCategoria);
+  }
+  if (filtroBusca) lista = lista.filter(p => p.title.toLowerCase().includes(filtroBusca.toLowerCase()));
+
+  if (filtroChip) {
+    if (filtroChip === 'ofertas') lista = lista.filter(p => parseBRL(p.old) > parseBRL(p.price));
+    if (filtroChip === 'full') lista = lista.filter(p => p.badges?.includes('full'));
+    if (filtroChip === 'top') lista = lista.filter(p => parseFloat(p.rating) >= 4.8);
+    if (filtroChip === 'barato') lista = lista.filter(p => parseBRL(p.price) <= 500);
+    if (filtroChip === 'favoritos') lista = lista.filter(p => favoritos.includes(p.id));
+  }
+
+  if (ordenacaoAtual === 'menor') lista.sort((a,b) => parseBRL(a.price) - parseBRL(b.price));
+  if (ordenacaoAtual === 'maior') lista.sort((a,b) => parseBRL(b.price) - parseBRL(a.price));
+  if (ordenacaoAtual === 'avaliacao') lista.sort((a,b) => parseFloat(b.rating || 0) - parseFloat(a.rating || 0));
+  if (ordenacaoAtual === 'desconto') lista.sort((a,b) => (parseBRL(b.old) - parseBRL(b.price)) - (parseBRL(a.old) - parseBRL(a.price)));
+
+  document.getElementById('results-count').textContent = `${lista.length} produto(s) encontrado(s)`;
+
+  if (lista.length === 0) {
+    grid.innerHTML = `<div class="sem-resultado"><i class="fa-solid fa-magnifying-glass"></i><p>Nenhum produto encontrado com esses filtros.</p><button onclick="resetarFiltros()">Limpar busca</button></div>`;
+    return;
+  }
+
+  grid.innerHTML = lista.map(p => {
+    const badgesArr = p.badges || [];
+    let badgesHTML = '';
+    if (badgesArr.includes('full')) badgesHTML += `<div class="badge-full"><i class="fa-solid fa-truck-fast"></i> Full</div>`;
+    if (badgesArr.includes('montagem')) badgesHTML += `<div class="badge-montagem">COMPRE<br>MONTAGEM</div>`;
+    if (badgesArr.includes('imperdivel')) badgesHTML += `<div class="badge-oferta">IMPERDÍVEL</div>`;
+    if (badgesArr.includes('oferta')) badgesHTML += `<div class="badge-full" style="background:#111; font-size:12px;">OFERTA</div>`;
+    
+    const oldBRL = parseBRL(p.old); const preco = parseBRL(p.price);
+    if (oldBRL > preco) badgesHTML += `<div class="badge-off">${Math.round((1 - preco/oldBRL)*100)}% OFF</div>`;
+
+    let ratingHTML = '';
+    if (p.rating) {
+      let stars = ''; const nota = parseFloat(p.rating);
+      for (let i = 1; i <= 5; i++) {
+        if (nota >= i) stars += '<i class="fa-solid fa-star"></i>';
+        else if (nota >= i - 0.5) stars += '<i class="fa-solid fa-star-half-stroke"></i>';
+        else stars += '<i class="fa-regular fa-star"></i>';
+      }
+      ratingHTML = `<div class="rating"><span>${p.rating}</span> <div class="stars">${stars}</div> <span class="reviews">(${p.reviews})</span></div>`;
+    }
+
+    const precoPix = calcPrecoPix(p); const mostrarPix = p.pix > 0;
+    const isFav = favoritos.includes(p.id);
+
+    return `
+      <div class="card" tabindex="0" role="button" aria-label="${p.title}" onclick="abrirProduto(${p.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirProduto(${p.id})}">
+        <button class="btn-fav ${isFav?'active':''}" onclick="toggleFavorito(${p.id}, event)" aria-label="Favoritar"><i class="fa-${isFav?'solid':'regular'} fa-heart"></i></button>
+        <div class="badges">${badgesHTML}</div>
+        <div class="img-container"><img src="${p.img}" loading="lazy" onerror="this.src='${fallbackImg}'" alt="${p.title}"></div>
+        <h3>${p.title}</h3>
+        ${ratingHTML}
+        <div class="price-box">
+          <span class="price"><small>R$</small> ${formatBRL(mostrarPix ? precoPix : preco).replace('R$','').trim()}</span>
+          ${mostrarPix ? '<span class="pix-text">no Pix</span>' : ''}
+        </div>
+        <div class="installments">ou ${formatBRL(preco)} em ${p.inst}</div>
+        <div class="card-actions">
+          <button class="btn-add" onclick="event.stopPropagation(); adicionarCarrinho(${p.id}, 1, event)"><i class="fa-solid fa-cart-plus"></i> Adicionar</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ============ CARRINHO ============ */
+function adicionarCarrinho(id, qtd, event) {
+  const prod = produtos.find(p => p.id === id); if (!prod) return;
+  const item = carrinho.find(i => i.id === id);
+  if (item) item.qtd += qtd; else carrinho.push({ ...prod, precoNum: parseBRL(prod.price), qtd });
+  salvarCarrinho(); atualizarCarrinho();
+  if (event && event.target) {
+    const btn = event.target.closest('button');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = 'Adicionado!'; btn.classList.add('added');
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('added'); }, 1200);
+    }
+  }
+  showToast("Produto adicionado à sacola!");
+}
+
+function alterarQtd(id, delta) {
+  const idx = carrinho.findIndex(i => i.id === id); if (idx === -1) return;
+  carrinho[idx].qtd += delta;
+  if (carrinho[idx].qtd <= 0) carrinho.splice(idx, 1);
+  salvarCarrinho(); atualizarCarrinho();
+}
+
+function removerItem(id) { carrinho = carrinho.filter(i => i.id !== id); salvarCarrinho(); atualizarCarrinho(); showToast('Item removido.'); }
+
+function aplicarCupom() {
+  const val = document.getElementById('cupom-input').value.trim().toUpperCase();
+  if (cuponsValidos[val]) {
+    cupomAplicado = val;
+    document.getElementById('coupon-form').style.display = 'none';
+    document.getElementById('coupon-tag').style.display = 'flex';
+    document.getElementById('coupon-label').innerHTML = `<i class="fa-solid fa-tag"></i> Cupom <strong>${val}</strong> aplicado!`;
+    showToast('Cupom aplicado com sucesso!'); atualizarCarrinho();
+  } else { showToast('Cupom inválido ou expirado.', 'error'); }
+}
+function removerCupom() {
+  cupomAplicado = null;
+  document.getElementById('coupon-form').style.display = 'flex';
+  document.getElementById('coupon-tag').style.display = 'none';
+  document.getElementById('cupom-input').value = '';
+  atualizarCarrinho(); showToast('Cupom removido.');
+}
+
+function atualizarCarrinho() {
+  const list = document.getElementById('cart-items');
+  const badge = document.getElementById('cart-badge');
+  const shippingBox = document.getElementById('shipping-box');
+  const freeShipBox = document.getElementById('free-ship');
+
+  if (carrinho.length === 0) {
+    list.innerHTML = '<div class="cart-empty"><i class="fa-solid fa-bag-shopping"></i><p>Sua sacola está vazia.</p></div>';
+    badge.style.display = 'none'; shippingBox.style.display = 'none'; freeShipBox.style.display = 'none';
+    freteSelecionado = null;
+    document.getElementById('coupon-box').style.display = 'none';
+  } else {
+    list.innerHTML = carrinho.map(item => `
+      <div class="cart-item">
+        <img src="${item.img}" onerror="this.src='${fallbackImg}'">
+        <div class="cart-item-info">
+          <h4>${item.title.substring(0, 40)}${item.title.length > 40 ? '…' : ''}</h4>
+          <div class="cart-item-price">${formatBRL(item.precoNum)}</div>
+          <div class="cart-item-row">
+            <div class="qty-controls">
+              <button onclick="alterarQtd(${item.id}, -1)">-</button>
+              <span>${item.qtd}</span>
+              <button onclick="alterarQtd(${item.id}, 1)">+</button>
+            </div>
+            <button class="btn-remove" onclick="removerItem(${item.id})">Remover</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    badge.textContent = carrinho.reduce((a,i) => a + i.qtd, 0);
+    badge.style.display = 'block'; shippingBox.style.display = 'block'; freeShipBox.style.display = 'block';
+    document.getElementById('coupon-box').style.display = 'block';
+
+    if (cepAtual && !document.getElementById('cep-input').value) {
+      document.getElementById('cep-input').value = cepAtual; calcularFreteCarrinho();
+    }
+  }
+  atualizarTotais();
+}
+
+function atualizarTotais() {
+  const subtotal = carrinho.reduce((acc, i) => acc + (i.precoNum * i.qtd), 0);
+  
+  const metaFrete = 299;
+  if (subtotal >= metaFrete) {
+    document.getElementById('free-ship-text').innerHTML = '<strong>Você ganhou frete grátis!</strong>';
+    document.getElementById('free-ship-bar').style.width = '100%';
+  } else {
+    document.getElementById('free-ship-text').innerHTML = `Faltam <strong>${formatBRL(metaFrete - subtotal)}</strong> para o frete grátis!`;
+    document.getElementById('free-ship-bar').style.width = `${(subtotal / metaFrete) * 100}%`;
+  }
+
+  let descontoCupom = 0;
+  if (cupomAplicado) {
+    const c = cuponsValidos[cupomAplicado];
+    descontoCupom = c.tipo === 'percent' ? subtotal * (c.valor / 100) : c.valor;
+    document.getElementById('cart-cupom-row').style.display = 'flex';
+    document.getElementById('cart-cupom-label').textContent = `Cupom (${cupomAplicado})`;
+    document.getElementById('cart-cupom-valor').textContent = `- ${formatBRL(descontoCupom)}`;
+  } else {
+    document.getElementById('cart-cupom-row').style.display = 'none';
+  }
+
+  const frete = freteSelecionado ? freteSelecionado.valor : 0;
+  document.getElementById('cart-subtotal').textContent = formatBRL(subtotal);
+  if (freteSelecionado) {
+    document.getElementById('cart-frete-row').style.display = 'flex';
+    document.getElementById('cart-frete').textContent = frete === 0 ? 'Grátis' : formatBRL(frete);
+  } else {
+    document.getElementById('cart-frete-row').style.display = 'none';
+  }
+
+  const totalFinal = subtotal - descontoCupom + frete;
+  document.getElementById('cart-total').textContent = formatBRL(totalFinal);
+  
+  const descontoPix = calcDescontoPixCarrinho(); const totalPix = totalFinal - descontoPix;
+  document.getElementById('cart-pix-total').textContent = `ou ${formatBRL(totalPix)} no Pix`;
+  document.getElementById('cart-pix-hint').textContent = descontoPix > 0 ? `Economize ${formatBRL(descontoPix)} pagando com Pix` : '';
+}
+
+function toggleCart() {
+  document.getElementById('cart-sidebar').classList.toggle('open');
+  document.getElementById('cart-overlay').classList.toggle('open');
+}
+
+/* ============ MODAL PRODUTO ============ */
+function abrirProduto(id) {
+  produtoAtual = produtos.find(p => p.id === id); if (!produtoAtual) return;
+  qtdProdutoModal = 1;
+  const p = produtoAtual;
+  const preco = parseBRL(p.price); const precoPix = calcPrecoPix(p); const mostrarPix = p.pix > 0;
+
+  let ratingHTML = '';
+  if (p.rating) {
+    let stars = ''; const nota = parseFloat(p.rating);
+    for (let i = 1; i <= 5; i++) {
+      if (nota >= i) stars += '<i class="fa-solid fa-star"></i>';
+      else if (nota >= i - 0.5) stars += '<i class="fa-solid fa-star-half-stroke"></i>';
+      else stars += '<i class="fa-regular fa-star"></i>';
+    }
+    ratingHTML = `<div class="rating"><span>${p.rating}</span> <div class="stars">${stars}</div> <span class="reviews">(${p.reviews} avaliações)</span></div>`;
+  }
+
+  const imgs = p.imgs || [p.img];
+  const galeriaHTML = imgs.map((url, i) => `<div class="gallery-thumb ${i===0?'active':''}" onclick="trocarImagem(this, '${url}')"><img src="${url}" onerror="this.src='${fallbackImg}'"></div>`).join('');
+  const specsHTML = Object.entries(p.specs || {}).map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+
+  document.getElementById('product-modal-body').innerHTML = `
+    <div class="product-gallery">
+      <div class="gallery-main"><img id="gallery-main-img" src="${imgs[0]}" onerror="this.src='${fallbackImg}'" alt="${p.title}"></div>
+      <div class="gallery-thumbs">${galeriaHTML}</div>
+    </div>
+    <div class="product-detail">
+      <h2>${p.title}</h2>
+      ${ratingHTML}
+      <div class="price-block">
+        ${parseBRL(p.old) > preco ? `<div class="old-line">R$ ${p.old}</div>` : ''}
+        <div class="price-big"><small>R$</small> ${formatBRL(mostrarPix ? precoPix : preco).replace('R$','').trim()}</div>
+        ${mostrarPix ? `<div class="pix-info">no Pix (${p.pix}% de desconto)</div>` : ''}
+        <div class="inst-info">ou ${formatBRL(preco)} em até 10x sem juros</div>
+        <div class="stock"><i class="fa-solid fa-check-circle"></i> Em estoque</div>
+      </div>
+      <div class="qty-detail">
+        <span style="font-size:13px;color:#555;">Qtd:</span>
+        <button onclick="alterarQtdModal(-1)">-</button><span id="qtd-modal">1</span><button onclick="alterarQtdModal(1)">+</button>
+      </div>
+      <button class="btn-add-big" onclick="adicionarCarrinho(${p.id}, qtdProdutoModal, event)"><i class="fa-solid fa-cart-plus"></i> Adicionar à sacola</button>
+      <button class="btn-buy-big" onclick="comprarAgora(${p.id})">Comprar agora</button>
+      <div class="cep-calc-detail">
+        <label><i class="fa-solid fa-truck-fast"></i> Calcular frete e prazo</label>
+        <div class="cep-row">
+          <input type="text" id="cep-detail" placeholder="00000-000" maxlength="9" oninput="mascaraCEP(this)" value="${cepAtual}">
+          <button onclick="calcularFreteDetail()">OK</button>
+        </div>
+        <div id="frete-detail-opcoes"></div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('product-modal-desc').innerHTML = `
+    <h3>Descrição do produto</h3><p>${p.desc || 'Sem descrição.'}</p>
+    ${specsHTML ? `<h3>Especificações técnicas</h3><table class="specs-table">${specsHTML}</table>` : ''}
+  `;
+
+  document.getElementById('product-modal').classList.add('open'); document.body.style.overflow = 'hidden';
+}
+
+function fecharProdutoModal(event) {
+  if (event && event.target.id !== 'product-modal') return;
+  document.getElementById('product-modal').classList.remove('open'); document.body.style.overflow = ''; produtoAtual = null;
+}
+
+function trocarImagem(thumb, url) {
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active'); document.getElementById('gallery-main-img').src = url;
+}
+
+function alterarQtdModal(delta) { qtdProdutoModal = Math.max(1, qtdProdutoModal + delta); document.getElementById('qtd-modal').textContent = qtdProdutoModal; }
+
+function comprarAgora(id) {
+  adicionarCarrinho(id, qtdProdutoModal, null);
+  fecharProdutoModal({target:{id:'product-modal'}});
+  setTimeout(() => { abrirCheckout(); }, 300);
+}
+
+/* ============ FRETE ============ */
+function calcularFreteValores(cep, pesoTotal) {
+  const limpo = cep.replace(/\D/g, ''); if (limpo.length !== 8) return null;
+  const regiao = parseInt(limpo[0]);
+  const fatores = { 0:1.0, 1:1.0, 2:1.3, 3:1.4, 4:1.8, 5:2.0, 6:2.3, 7:1.6, 8:1.3, 9:1.4 };
+  const fator = fatores[regiao] || 1.5;
+  const pac = 14.90 + (fator * 6) + (pesoTotal * 1.2);
+  const sedex = 24.90 + (fator * 12) + (pesoTotal * 2.5);
+  return { pac: { valor: pac, prazo: Math.round(5 + fator * 2) + ' dias úteis' }, sedex: { valor: sedex, prazo: Math.round(1 + fator) + ' dias úteis' } };
+}
+
+function calcularFreteCarrinho() {
+  if (carrinho.length === 0) return;
+  const cep = document.getElementById('cep-input').value;
+  if (cep.replace(/\D/g,'').length !== 8) { showToast('CEP inválido.', 'error'); return; }
+  const pesoTotal = carrinho.reduce((acc, i) => acc + ((i.peso || 2) * i.qtd), 0);
+  const subtotal = carrinho.reduce((acc, i) => acc + (i.precoNum * i.qtd), 0);
+  const valores = calcularFreteValores(cep, pesoTotal); if (!valores) return;
+
+  cepAtual = cep; localStorage.setItem('magalu_cep', cep);
+  const freteGratis = subtotal >= 299;
+
+  document.getElementById('frete-opcoes').innerHTML = `
+    <div class="frete-opt" onclick="selecionarFrete('pac', ${valores.pac.valor}, '${valores.pac.prazo}', this)">
+      <div><span class="nome">PAC</span><span class="prazo">${valores.pac.prazo}</span></div>
+      <span class="valor ${freteGratis ? 'gratis' : ''}">${freteGratis ? 'Grátis' : formatBRL(valores.pac.valor)}</span>
+    </div>
+    <div class="frete-opt" onclick="selecionarFrete('sedex', ${valores.sedex.valor}, '${valores.sedex.prazo}', this)">
+      <div><span class="nome">SEDEX</span><span class="prazo">${valores.sedex.prazo}</span></div>
+      <span class="valor">${formatBRL(valores.sedex.valor)}</span>
+    </div>
+    <div class="frete-opt" onclick="selecionarFrete('retirada', 0, 'Retirar na loja', this)">
+      <div><span class="nome">Retirar na loja</span><span class="prazo">Grátis · Pronto em 2h</span></div>
+      <span class="valor gratis">Grátis</span>
+    </div>
+  `;
+  if (freteGratis) { freteSelecionado = { tipo:'pac', valor:0, prazo: valores.pac.prazo }; document.querySelectorAll('#frete-opcoes .frete-opt')[0].classList.add('selected'); }
+  atualizarTotais();
+}
+
+function selecionarFrete(tipo, valor, prazo, el) {
+  const subtotal = carrinho.reduce((acc, i) => acc + (i.precoNum * i.qtd), 0);
+  const freteGratis = subtotal >= 299;
+  freteSelecionado = { tipo, valor: (tipo === 'pac' && freteGratis) ? 0 : valor, prazo };
+  document.querySelectorAll('#frete-opcoes .frete-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected'); atualizarTotais();
+}
+
+function calcularFreteDetail() {
+  if (!produtoAtual) return;
+  const cep = document.getElementById('cep-detail').value;
+  if (cep.replace(/\D/g,'').length !== 8) { showToast('CEP inválido.', 'error'); return; }
+  const valores = calcularFreteValores(cep, (produtoAtual.peso || 2) * qtdProdutoModal); if (!valores) return;
+  cepAtual = cep; localStorage.setItem('magalu_cep', cep);
+  document.getElementById('frete-detail-opcoes').innerHTML = `
+    <div class="frete-opt" onclick="this.parentElement.querySelectorAll('.frete-opt').forEach(o=>o.classList.remove('selected')); this.classList.add('selected');">
+      <div><span class="nome">PAC</span><span class="prazo">${valores.pac.prazo}</span></div><span class="valor">${formatBRL(valores.pac.valor)}</span>
+    </div>
+    <div class="frete-opt" onclick="this.parentElement.querySelectorAll('.frete-opt').forEach(o=>o.classList.remove('selected')); this.classList.add('selected');">
+      <div><span class="nome">SEDEX</span><span class="prazo">${valores.sedex.prazo}</span></div><span class="valor">${formatBRL(valores.sedex.valor)}</span>
+    </div>
+  `;
+}
+
+/* ============ CHECKOUT ============ */
+function abrirCheckout() {
+  if (carrinho.length === 0) { showToast('Sua sacola está vazia!', 'error'); return; }
+  document.getElementById('cart-sidebar').classList.remove('open'); document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('checkout-modal').classList.add('open');
+  document.getElementById('checkout-content').style.display = 'grid'; document.getElementById('success-screen').style.display = 'none';
+  document.body.style.overflow = 'hidden'; renderizarResumoCheckout();
+  if (cepAtual && !document.getElementById('pay-cep').value) { document.getElementById('pay-cep').value = cepAtual; onCepCheckoutChange(); }
+}
+
+function fecharCheckout() { document.getElementById('checkout-modal').classList.remove('open'); document.body.style.overflow = ''; }
+
+function renderizarResumoCheckout() {
+  const subtotal = carrinho.reduce((acc, i) => acc + (i.precoNum * i.qtd), 0);
+  const frete = freteSelecionado ? freteSelecionado.valor : 0;
+  let descontoCupom = 0;
+  if (cupomAplicado) {
+    const c = cuponsValidos[cupomAplicado];
+    descontoCupom = c.tipo === 'percent' ? subtotal * (c.valor / 100) : c.valor;
+  }
+  
+  const totalBase = subtotal - descontoCupom + frete;
+  const parcSel = document.getElementById('pay-parcelas');
+  if (parcSel && parcSel.options.length === 0) {
+    for (let i = 1; i <= 10; i++) { const opt = document.createElement('option'); opt.value = i; opt.textContent = `${i}x de ${formatBRL(totalBase/i)} sem juros`; parcSel.appendChild(opt); }
+  }
+  const parcelas = parseInt(parcSel ? parcSel.value : 1) || 1;
+
+  let totalFinal = totalBase;
+  let notaTotal = '';
+  if (formaPagamento === 'pix') { 
+    const descontoPix = calcDescontoPixCarrinho(); totalFinal = totalBase - descontoPix; 
+    notaTotal = descontoPix > 0 ? `Economize ${formatBRL(descontoPix)} pagando no Pix` : ''; 
+  }
+  else if (formaPagamento === 'cartao') { 
+    notaTotal = `${parcelas}x de ${formatBRL(totalBase/parcelas)} sem juros`; 
+  }
+
+  document.getElementById('checkout-resumo').innerHTML = carrinho.map(item => `<div class="resumo-item"><span>${item.qtd}x ${item.title.length > 30 ? item.title.substring(0, 30) + '…' : item.title}</span><span>${formatBRL(item.precoNum * item.qtd)}</span></div>`).join('') + `
+    <div class="resumo-divider"></div>
+    <div class="resumo-item"><span>Subtotal</span><strong>${formatBRL(subtotal)}</strong></div>
+    ${descontoCupom > 0 ? `<div class="resumo-item" style="color:var(--green);"><span>Cupom (${cupomAplicado})</span><span>- ${formatBRL(descontoCupom)}</span></div>` : ''}
+    <div class="resumo-item"><span>Frete</span><strong>${frete === 0 ? 'Grátis' : formatBRL(frete)}</strong></div>
+    ${formaPagamento === 'pix' ? `<div class="resumo-item" style="color:var(--green);"><span>Desconto Pix</span><span>- ${formatBRL(calcDescontoPixCarrinho())}</span></div>` : ''}
+  `;
+
+  document.getElementById('checkout-total').textContent = formatBRL(totalFinal);
+  document.getElementById('checkout-total-nota').textContent = notaTotal;
+  document.getElementById('pix-opt-desc').textContent = `Aprovação imediata com desconto no Pix`;
+  
+  document.getElementById('checkout-side').innerHTML = `
+    <div class="checkout-box">
+      <h3><i class="fa-solid fa-bag-shopping"></i> Sua sacola</h3>
+      ${carrinho.map(item => `<div class="resumo-item"><span>${item.qtd}x ${item.title.length > 20 ? item.title.substring(0, 20) + '…' : item.title}</span><span>${formatBRL(item.precoNum * item.qtd)}</span></div>`).join('')}
+      <div class="resumo-total"><span>Total:</span><span>${formatBRL(totalFinal)}</span></div>
+    </div>
+  `;
+}
+
+function selPgto(tipo, el) {
+  formaPagamento = tipo; document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected'); document.getElementById('campos-cartao').style.display = tipo === 'cartao' ? 'block' : 'none';
+  renderizarResumoCheckout();
+}
+
+function onCepCheckoutChange() {
+  const cep = document.getElementById('pay-cep').value;
+  if (cep.replace(/\D/g,'').length === 8) {
+    const pesoTotal = carrinho.reduce((acc, i) => acc + ((i.peso || 2) * i.qtd), 0);
+    const subtotal = carrinho.reduce((acc, i) => acc + (i.precoNum * i.qtd), 0);
+    const freteGratis = subtotal >= 299;
+    const valores = calcularFreteValores(cep, pesoTotal);
+    if (valores) {
+      document.getElementById('checkout-frete-opcoes').innerHTML = `
+        <div class="frete-opt" onclick="document.querySelectorAll('#checkout-frete-opcoes .frete-opt').forEach(o=>o.classList.remove('selected')); this.classList.add('selected'); freteSelecionado={tipo:'pac',valor:${freteGratis ? 0 : valores.pac.valor},prazo:'${valores.pac.prazo}'}; renderizarResumoCheckout();">
+          <div><span class="nome">PAC</span><span class="prazo">${valores.pac.prazo}</span></div><span class="valor ${freteGratis ? 'gratis' : ''}">${freteGratis ? 'Grátis' : formatBRL(valores.pac.valor)}</span>
+        </div>
+        <div class="frete-opt" onclick="document.querySelectorAll('#checkout-frete-opcoes .frete-opt').forEach(o=>o.classList.remove('selected')); this.classList.add('selected'); freteSelecionado={tipo:'sedex',valor:${valores.sedex.valor},prazo:'${valores.sedex.prazo}'}; renderizarResumoCheckout();">
+          <div><span class="nome">SEDEX</span><span class="prazo">${valores.sedex.prazo}</span></div><span class="valor">${formatBRL(valores.sedex.valor)}</span>
+        </div>
+      `;
+      if (freteGratis) { freteSelecionado = { tipo:'pac', valor:0, prazo: valores.pac.prazo }; document.querySelectorAll('#checkout-frete-opcoes .frete-opt')[0].classList.add('selected'); }
+      renderizarResumoCheckout();
+    }
+  }
+}
+
+function validarFormulario() {
+  let valid = true;
+  const campos = [
+    { id: 'pay-nome', erro: 'erro-nome', val: v => v.length >= 3 },
+    { id: 'pay-cpf', erro: 'erro-cpf', val: v => validarCPF(v) },
+    { id: 'pay-email', erro: 'erro-email', val: v => v.includes('@') && v.includes('.') },
+    { id: 'pay-tel', erro: 'erro-tel', val: v => v.replace(/\D/g,'').length >= 10 },
+    { id: 'pay-cep', erro: 'erro-cep', val: v => v.replace(/\D/g,'').length === 8 },
+    { id: 'pay-endereco', erro: 'erro-endereco', val: v => v.length >= 5 },
+    { id: 'pay-bairro', erro: 'erro-bairro', val: v => v.length >= 2 },
+    { id: 'pay-cidade', erro: 'erro-cidade', val: v => v.length >= 3 }
+  ];
+  if (formaPagamento === 'cartao') {
+    campos.push({ id: 'pay-cartao', erro: 'erro-cartao', val: v => v.replace(/\D/g,'').length >= 13 });
+    campos.push({ id: 'pay-validade', erro: 'erro-validade', val: v => v.length >= 5 });
+    campos.push({ id: 'pay-cvv', erro: 'erro-cvv', val: v => v.length >= 3 });
+    campos.push({ id: 'pay-nome-cartao', erro: 'erro-nome-cartao', val: v => v.length >= 3 });
+  }
+
+  campos.forEach(c => {
+    const input = document.getElementById(c.id);
+    const erroMsg = document.getElementById(c.erro);
+    if (!c.val(input.value.trim())) { input.classList.add('erro'); if(erroMsg) erroMsg.classList.add('show'); valid = false; }
+    else { input.classList.remove('erro'); if(erroMsg) erroMsg.classList.remove('show'); }
+  });
+
+  return valid;
+}
+
+function processarPagamento() {
+  if (!validarFormulario()) { showToast('Corrija os campos destacados.', 'error'); return; }
+  if (!freteSelecionado) { showToast('Selecione uma opção de frete.', 'error'); return; }
+
+  const btn = document.getElementById('btn-pay'); btn.textContent = 'Processando...'; btn.disabled = true;
+
+  setTimeout(() => {
+    const pedido = 'MAG' + Math.floor(Math.random() * 900000 + 100000);
+    const totalTxt = document.getElementById('checkout-total').textContent;
+    
+    document.getElementById('success-pedido').innerHTML = `Pedido <strong>${pedido}</strong> confirmado.`;
+    
+    let successHTML = '';
+    if (formaPagamento === 'pix') {
+      successHTML = `<h4>Pague com Pix para confirmar</h4><div class="copy-field"><input type="text" value="00020126580014BR.GOV.BCB.PIX0136a1b2c3d4-e5f6-7890-abcd-ef12345678905204000053039865405${parseBRL(totalTxt.replace('R$','').trim()).toFixed(2).replace('.','')}5802BR5913Magalu Demo6009Sao Paulo62070503***6304ABCD" readonly><button onclick="showToast('Código Pix copiado!')">Copiar</button></div>`;
+    } else if (formaPagamento === 'boleto') {
+      successHTML = `<h4>Boleto gerado</h4><p style="font-size:12px;color:#666;margin-bottom:10px;">Vencimento em 2 dias úteis.</p><div class="copy-field"><input type="text" value="34191.79001 01043.510047 91020.150008 9 98765432100000" readonly><button onclick="showToast('Linha digitável copiada!')">Copiar</button></div>`;
+    } else {
+      successHTML = `<h4>Pagamento aprovado no cartão</h4><p style="font-size:13px;color:var(--green);font-weight:700;"><i class="fa-solid fa-circle-check"></i> ${document.getElementById('pay-parcelas').value}x de ${formatBRL(parseBRL(totalTxt.replace('R$','').trim())/document.getElementById('pay-parcelas').value)}</p>`;
+    }
+    document.getElementById('success-box').innerHTML = successHTML;
+
+    carrinho = []; freteSelecionado = null; cupomAplicado = null;
+    salvarCarrinho(); atualizarCarrinho();
+    document.getElementById('checkout-content').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    btn.textContent = 'Pagar Agora'; btn.disabled = false;
+  }, 1500);
+}
+
+function voltarLoja() {
+  fecharCheckout();
+  document.querySelectorAll('.checkout-modal input').forEach(i => i.value = '');
+  document.querySelectorAll('.checkout-modal .erro').forEach(e => e.classList.remove('erro'));
+  document.querySelectorAll('.checkout-modal .msg-erro').forEach(e => e.classList.remove('show'));
+  document.getElementById('campos-cartao').style.display = 'none';
+  document.getElementById('frete-opcoes').innerHTML = ''; document.getElementById('cep-input').value = '';
+  document.getElementById('cupom-input').value = ''; document.getElementById('coupon-form').style.display = 'flex'; document.getElementById('coupon-tag').style.display = 'none';
+  formaPagamento = 'pix'; document.querySelectorAll('.pay-opt').forEach((o,i) => o.classList.toggle('selected', i === 0));
+  window.scrollTo(0, 0);
+}
+
+function assinarNewsletter() {
+  const email = document.getElementById('news-email').value.trim();
+  if (email.includes('@') && email.includes('.')) { showToast('Inscrição realizada com sucesso!'); document.getElementById('news-email').value = ''; }
+  else showToast('Informe um e-mail válido.', 'error');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('product-modal').classList.contains('open')) fecharProdutoModal({target:{id:'product-modal'}});
+    if (document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
+  }
+});
+
+/* INIT */
+carregarCarrinho();
+renderVitrine();
+atualizarCarrinho();
+atualizarBadges();
+</script>
+</body>
+</html>
